@@ -14,7 +14,6 @@ public:
 //------------------------
 
 protected:
-	//arregloGenerico<puntoBase>* arregloConexiones;
 	puntoSimple*** m;
 	int filas;
 	int columnas;
@@ -50,7 +49,6 @@ puntoCompuesto::~puntoCompuesto()
 string puntoCompuesto::toString()
 {
 	stringstream s;
-	stringstream aux;
 	stringstream auxabajo;
 	int flag;
 	for (int i = 0; i < filas; i++)
@@ -76,7 +74,6 @@ string puntoCompuesto::toString()
 		{
 			auxabajo << endl;
 		}
-		//s << endl;
 		s << auxabajo.str();
 		s << endl;
 		auxabajo.str("");

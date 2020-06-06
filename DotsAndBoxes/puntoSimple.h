@@ -18,7 +18,6 @@ public:
 
 //------GET------------
 	string toString();
-	string toStringUp();
 	string toStringDown();
 	bool getConquistado();
 	int getCodigo();
@@ -141,38 +140,20 @@ string puntoSimple::toString()
 		if (izquierda)
 		{
 				s << "---o";
-			//	s << "\t";
 			
 		}
 		else if (derecha)
 		{
 			s << "\to----";
-			//s << "\t";
 		}
 
 		else
 		{
-			//s << "\t\n";
 			s << "\to";
-			//s << "\t";
 		}
 		
 	}
 	return s.str();
-}
-
-inline string puntoSimple::toStringUp()
-{
-	stringstream p;
-	if (arriba)
-	{
-		p << "|";
-	}
-	else
-	{
-		p << "\t";
-	}
-	return p.str();
 }
 
 inline string puntoSimple::toStringDown()

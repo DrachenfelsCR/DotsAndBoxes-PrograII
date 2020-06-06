@@ -12,11 +12,3 @@ public:
 private:
 
 };
-
-jugador::jugador()
-{
-}
-
-jugador::~jugador()
-{
-}

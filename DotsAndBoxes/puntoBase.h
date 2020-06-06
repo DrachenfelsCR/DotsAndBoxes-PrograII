@@ -13,7 +13,5 @@ private:
 
 };
 
-puntoBase::puntoBase()
-{
-}
+
 

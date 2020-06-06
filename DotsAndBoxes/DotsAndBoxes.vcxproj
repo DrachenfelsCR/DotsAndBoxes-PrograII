@@ -139,15 +139,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="arreglo.h" />
+    <ClInclude Include="interfaz.h" />
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorArreglo.h" />
     <ClInclude Include="jugador.h" />
     <ClInclude Include="puntoBase.h" />
     <ClInclude Include="puntoCompuesto.h" />
     <ClInclude Include="puntoSimple.h" />
+    <ClInclude Include="utiles.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="interfaz.cpp" />
+    <ClCompile Include="jugador.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="puntoBase.cpp" />
+    <ClCompile Include="puntoCompuesto.cpp" />
+    <ClCompile Include="puntoSimple.cpp" />
+    <ClCompile Include="utiles.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

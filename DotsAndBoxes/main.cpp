@@ -1,8 +1,11 @@
 #include "puntoCompuesto.h"
 #include "puntoSimple.h"
+#include "interfaz.h"
 
 int main()
 {
+    interfaz i;
+    i.menuPrincipal();
     puntoCompuesto* puntoC = new puntoCompuesto(5,5);
     puntoSimple* aiuda = puntoC->buscar(1, 3);
    puntoSimple* aiuda2 = puntoC->buscar(1, 2);

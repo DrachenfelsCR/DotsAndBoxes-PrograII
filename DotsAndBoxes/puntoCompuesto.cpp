@@ -61,12 +61,12 @@ string puntoCompuesto::toString()
 
 bool puntoCompuesto::conquistado(int x, int y)
 {
-	puntoSimple* s = new puntoSimple();
+	
 	for (int i = 0; i < filas; i++)
 	{
 		for (int j  = 0;  j< columnas ; j++)
 		{
-			if ((buscar(x,y-1)->checkIzq()==true||buscar(x,y)->checkIzq()==true) && buscar(x,y)->checkAbajo()==true && (buscar(x, y+1)->checkAbajo()==true))
+			if ((buscar(x,y-1)->checkDerecha()==true||buscar(x,y)->checkDerecha()==true) && buscar(x,y)->checkAbajo()==true && (buscar(x, y+1)->checkAbajo()==true))
 			{
 				
 				cout << "tiene Cuadro" << endl;

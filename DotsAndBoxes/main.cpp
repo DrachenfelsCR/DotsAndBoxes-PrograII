@@ -15,17 +15,17 @@ int main()
    supIzq->setDerecha(true);
    supIzq->setAbajo(true);
    //-------------
-   infIzq->setArriba(true);
+ 
    infIzq->setDerecha(true);
    //---------------------
    supDerecha->setAbajo(true);
    supDerecha->setIzquierda(true);
    //---------------------
-   infDerecha->setArriba(true);
+   
    infDerecha->setIzquierda(true);
    //-----------------------
     cout << puntoC->toString();
-    cout<<puntoC->conquistado(2,3);
+    cout << puntoC->conquistado(2,2);
    
     cin.get();
     return 0;

@@ -112,6 +112,32 @@ int leerSeleccion(int mayor) {
 	}
 }
 
+
+int rangoCeroAN(int mayor) {
+	int entrada = 0;
+	while (true) {
+		cout << "\t";
+		if (cin >> entrada) {
+
+			if (entrada <= mayor && entrada >= 0) {
+				cin.clear();
+				cin.ignore(1024, '\n');
+				return entrada;
+			}
+			else {
+				cerr << "\t Valor incorrecto.. digite un numero entre 0 y " << mayor << endl;
+				cin.clear();
+				cin.ignore(1024, '\n');
+			}
+		}
+		else {
+			cerr << "\t Valor incorrecto.. digite un numero entre 0 y " << mayor << endl;
+			cin.clear();
+			cin.ignore(1024, '\n');
+		}
+	}
+}
+
 int numeroCodigo(string codigo) {
 	string numero = "";
 	int n = 0;

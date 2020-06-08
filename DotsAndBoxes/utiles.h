@@ -15,6 +15,7 @@ int leerEntero();
 float leerFlotante();
 char leerCaracter();
 int leerSeleccion(int);
+int rangoCeroAN(int);
 int letraCodigo(string);
 void limpiaPantalla();
 string leerCadena();

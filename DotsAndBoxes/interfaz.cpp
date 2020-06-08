@@ -168,72 +168,23 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 
 void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoCompuesto* campoJ)
 {
-	int turnos = 10;
+	int turnos = 5;
 	int turnoActual = 0;
 	excepcionEspecifica excep;
 	try
 	{
-		while (turnos != 10)
+		while (turnos != 0)
 		{
-			turnoActual = 1;
-			if (turnoActual == 1)
-			{
-				imprimirCadena("Turno de Jugador 1");
-				int fila = 0;
-				int columna = 0;
-				imprimirCadena("Punto de origen, fila: ");
-				fila = leerSeleccion(9);
-				imprimirCadena("Punto de origen, columna: ");
-				columna = leerSeleccion(columnasMax);
-				puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
-			//------------VERIFICA QUE EL PUNTO DE ORIGEN NO SEA NULO
-				while (puntoOrigen == nullptr)
-				{
-					//----------------------------------------------------
-					imprimirCadena("Este punto no esta disponible, trate otra coordenada");
-					imprimirCadena("< digite enter >");
-					cin.get();
-					limpiaPantalla();
-					mostrarCampo(columnasMax, campoJ);
-					//----------------------------------------------------
-					imprimirCadena("Turno de Jugador 1");
-					int fila = 0;
-					int columna = 0;
-					imprimirCadena("Punto de origen, fila: ");
-					fila = leerSeleccion(9);
-					imprimirCadena("Punto de origen, columna: ");
-					columna = leerSeleccion(columnasMax);
-					puntoSimple* puntoOrigen = campoJ->buscar(fila,columna);
-					//----------------------------------------------------
-				}
-			//-----FIN DE VERIFICACION DEL PUNTO DE ORIGEN NULO
-				imprimirCadena("Punto de destino, fila: ");
-				fila = leerSeleccion(9);
-				imprimirCadena("Punto de destino, columna: ");
-				columna = leerSeleccion(columnasMax);
-				puntoSimple* puntoDestino = campoJ->buscar(fila, columna);
-			// ------------VERIFICA QUE EL PUNTO DE DESTINO NO SEA NULO
-					while (puntoDestino == nullptr || (puntoDestino == puntoOrigen) )
-					{
-						//----------------------------------------------------
-						imprimirCadena("Este punto no esta disponible, trate otra coordenada");
-						imprimirCadena("< digite enter >");
-						cin.get();
-						limpiaPantalla();
-						mostrarCampo(columnasMax, campoJ);
-						//----------------------------------------------------
-						imprimirCadena("Turno de Jugador 1");
-						int fila = 0;
-						int columna = 0;
-						imprimirCadena("Punto de origen, fila: ");
-						fila = leerSeleccion(9);
-						imprimirCadena("Punto de origen, columna: ");
-						columna = leerSeleccion(columnasMax);
-						puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
-						//----------------------------------------------------
-					}
-			//-----FIN DE VERIFICACION DEL PUNTO DE DESTINO NULO
-			}
+			//------------TURNO JUGADOR 1---------------
+			turnoJugador(p1, columnasMax, campoJ);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
+			//-----------TURNO JUGADOR 2----------------
+			turnoJugador(p2, columnasMax, campoJ);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
+			//------------------------------------------
+			turnos--;
 		}
 	}
 	catch (...)
@@ -241,6 +192,96 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 	}
 	
 }
+void interfaz::turnoJugador(jugador* p1,  int columnasMax, puntoCompuesto* campoJ)
+{
+			cout << "Turno de Jugador " << p1->getNombre() << endl;
+			int fila = 0;
+			int columna = 0;
+			imprimirCadena("Punto de origen, fila: ");
+			fila = rangoCeroAN(9);
+			imprimirCadena("Punto de origen, columna: ");
+			columna = rangoCeroAN(columnasMax);
+			puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
+			//------------VERIFICA QUE EL PUNTO DE ORIGEN NO SEA NULO
+			while (puntoOrigen == nullptr)
+			{
+				//----------------------------------------------------
+				imprimirCadena("Este punto no esta disponible, trate otra coordenada");
+				imprimirCadena("< digite enter >");
+				cin.get();
+				limpiaPantalla();
+				mostrarCampo(columnasMax, campoJ);
+				//----------------------------------------------------
+				cout << "Turno de Jugador " << p1->getNombre() << endl;
+				int fila = 0;
+				int columna = 0;
+				imprimirCadena("Punto de origen, fila: ");
+				fila = rangoCeroAN(9);
+				imprimirCadena("Punto de origen, columna: ");
+				columna = rangoCeroAN(columnasMax);
+				puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
+				//----------------------------------------------------
+			}
+			//-----FIN DE VERIFICACION DEL PUNTO DE ORIGEN NULO
+			imprimirCadena("Punto de destino, fila: ");
+			int fila2 = rangoCeroAN(9);
+			imprimirCadena("Punto de destino, columna: ");
+			int columna2 = rangoCeroAN(columnasMax);
+			//-------------------------------------------------------------
+			while ((fila2 >= fila + 2) || (fila2 <= fila - 2) || (columna2 >= columna + 2) || (columna2 <= columna - 2))
+			{
+				imprimirCadena("Este punto no esta disponible, utilice solo puntos adyacentes entre si");
+				imprimirCadena("Punto de destino, fila: ");
+				int fila2 = rangoCeroAN(9);
+				imprimirCadena("Punto de destino, columna: ");
+				int columna2 = rangoCeroAN(columnasMax);
+			}
+			puntoSimple* puntoDestino = campoJ->buscar(fila2, columna2);
+			// ------------VERIFICA QUE EL PUNTO DE DESTINO NO SEA NULO
+			while ((puntoDestino == nullptr) || ((puntoDestino->getX() == puntoOrigen->getX()) && (puntoDestino->getY() == puntoOrigen->getY())))
+			{
+				//----------------------------------------------------
+				imprimirCadena("Este punto no esta disponible, trate otra coordenada");
+				imprimirCadena("< digite enter >");
+				cin.get();
+				limpiaPantalla();
+				mostrarCampo(columnasMax, campoJ);
+				//----------------------------------------------------
+				cout << "Turno de Jugador " << p1->getNombre() << endl;
+				int fila = 0;
+				int columna = 0;
+				imprimirCadena("Punto de destino, fila: ");
+				fila = rangoCeroAN(9);
+				imprimirCadena("Punto de destino, columna: ");
+				columna = rangoCeroAN(columnasMax);
+				puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
+				//----------------------------------------------------
+			}
+			//-----FIN DE VERIFICACION DEL PUNTO DE DESTINO NULO
+			if (fila2 > fila)
+			{
+				puntoOrigen->setAbajo(true);
+				puntoDestino->setArriba(true);
+			}
+			else if (fila2 < fila)
+			{
+				puntoOrigen->setArriba(true);
+				puntoDestino->setAbajo(true);
+			}
+			else if (columna2 > columna)
+			{
+				puntoOrigen->setDerecha(true);
+				puntoDestino->setIzquierda(true);
+			}
+			else if (columna2 < columna)
+			{
+				puntoOrigen->setIzquierda(true);
+				puntoDestino->setDerecha(true);
+			}
+			imprimirCadena("< digite enter >");
+			cin.get();
+}
+
 void interfaz::mostrarCampo(int mayor, puntoCompuesto* campodeJuego)
 {
 	stringstream s;

@@ -25,7 +25,7 @@ int main()
    infDerecha->setIzquierda(true);
    //-----------------------
     cout << puntoC->toString();
-    cout << puntoC->conquistado(2,2);
+    cout << puntoC->conquistado(3,3);
    
     cin.get();
     return 0;

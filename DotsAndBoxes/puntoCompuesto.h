@@ -8,6 +8,7 @@ public:
 	puntoCompuesto(int, int);
 	~puntoCompuesto();
 	string toString();
+	bool conquistado(int,int);
 	puntoSimple* buscar(int,int);
 //-------------------------
 	puntoSimple*** getArreglo();

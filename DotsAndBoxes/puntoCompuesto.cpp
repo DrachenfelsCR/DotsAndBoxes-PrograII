@@ -61,7 +61,7 @@ string puntoCompuesto::toString()
 
 bool puntoCompuesto::conquistado(int x, int y)
 {
-	
+	int cont = 0;
 	for (int i = 0; i < filas; i++)
 	{
 		for (int j  = 0;  j< columnas ; j++)
@@ -70,6 +70,7 @@ bool puntoCompuesto::conquistado(int x, int y)
 			{
 				
 				cout << "tiene Cuadro" << endl;
+				
 				return true;
 			}
 		}

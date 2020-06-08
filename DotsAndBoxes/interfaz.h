@@ -1,5 +1,6 @@
 #pragma once
 #include "utiles.h"
+#include "puntoCompuesto.h"
 class interfaz {
 	int opc;
 public:
@@ -9,7 +10,7 @@ public:
 	void jugadorVrsPersona();
 	void jugadorVrsMaquina();
 	void cargarPartida();
-	void crearCampoDeJuego(int,int,int);
+	puntoCompuesto* crearCampoDeJuego(int,int,int);
 
 
 

@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="arreglo.h" />
+    <ClInclude Include="excepciones.h" />
     <ClInclude Include="interfaz.h" />
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorArreglo.h" />

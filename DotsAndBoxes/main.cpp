@@ -4,13 +4,13 @@
 
 int main()
 {
-    
-   puntoCompuesto* puntoC = new puntoCompuesto(5,5);
+   /*
+   puntoCompuesto* puntoC = new puntoCompuesto(14,14);
    puntoSimple* supIzq = puntoC->buscar(0, 2);
    puntoSimple* supDerecha = puntoC->buscar(0, 2);
    puntoSimple* infIzq = puntoC->buscar(1, 2);
-  // puntoSimple* infDerecha = puntoC->buscar(1, 4);*/
-   
+   puntoSimple* infDerecha = puntoC->buscar(1, 4);
+   /////////////////////////////////////////////////////
    puntoSimple* supIzq1 = puntoC->buscar(0, 0);
    puntoSimple* supDerecha2 = puntoC->buscar(0, 1);
    puntoSimple* infIzq3 = puntoC->buscar(1, 0);
@@ -43,8 +43,10 @@ int main()
   // infDerecha->setIzquierda(true);
    //-----------------------
     cout << puntoC->toString();
-    
+    */
    
+    interfaz i;
+    i.menuPrincipal();
     cin.get();
     return 0;
 }

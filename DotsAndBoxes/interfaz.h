@@ -9,9 +9,7 @@ public:
 	void jugadorVrsPersona();
 	void jugadorVrsMaquina();
 	void cargarPartida();
-
-
-
+	void crearCampoDeJuego(int,int,int);
 
 
 

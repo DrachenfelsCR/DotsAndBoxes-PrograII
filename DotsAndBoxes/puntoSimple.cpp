@@ -96,8 +96,11 @@ string puntoSimple::toString()
 	stringstream s;
 	if (conquistado)
 	{
-
-		if (izquierda)
+		if (izquierda && derecha)
+		{
+			s << "---o----";
+		}
+		else if (izquierda)
 		{
 			s << "---o";
 
@@ -106,7 +109,6 @@ string puntoSimple::toString()
 		{
 			s << "\to----";
 		}
-
 		else
 		{
 			s << "\to";

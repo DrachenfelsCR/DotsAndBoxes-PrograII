@@ -33,6 +33,7 @@ string puntoCompuesto::toString()
 	int flag;
 	for (int i = 0; i < filas; i++)
 	{
+		int fila = i;
 		flag = 0;
 		auxabajo << endl;
 		for (int j = 0; j < columnas; j++)
@@ -51,6 +52,11 @@ string puntoCompuesto::toString()
 					auxabajo << m[i][j]->toStringDown();
 				}
 				//-----MEDIO----
+				if (fila == i)
+				{
+					s << i << "|";
+					fila++;
+				}
 				s << m[i][j]->toString();
 				//-----------
 			}
@@ -91,18 +97,7 @@ bool puntoCompuesto::conquistado(int x, int y)
 
  puntoSimple* puntoCompuesto::buscar(int x, int y)
 {
-	for (int i = 0; i < filas; i++)
-	{
-		for (int j = 0; j < columnas; j++)
-		{
-			if (m[i][j]->getX() == x && m[i][j]->getY() == y)
-			{
-				return (m[i][j]);
-			}
-		}
-	}
-	return nullptr;
-
+	return m[x][y];
 }
  puntoSimple*** puntoCompuesto::getArreglo()
 {

@@ -11,6 +11,9 @@ public:
 	void jugadorVrsMaquina();
 	void cargarPartida();
 	puntoCompuesto* crearCampoDeJuego(int,int,int);
+	void turnoDeJuego(jugador*, jugador*, int, puntoCompuesto*);
+
+	void mostrarCampo(int, puntoCompuesto*);
 
 
 

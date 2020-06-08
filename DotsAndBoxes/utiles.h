@@ -24,4 +24,4 @@ string menuInicio();
 bool stringSix(string);
 bool stringUpperCase(string);
 int convertirInt(string);
-
+int mayorDeTresEnteros(int,int,int);

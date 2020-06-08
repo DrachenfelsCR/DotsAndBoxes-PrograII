@@ -6,25 +6,26 @@ int main()
 {
     
    puntoCompuesto* puntoC = new puntoCompuesto(5,5);
-   puntoSimple* aiuda = puntoC->buscar(0, 1);
-   puntoSimple* aiuda2 = puntoC->buscar(0, 0);
-
-   puntoSimple* aiuda3 = puntoC->buscar(1, 1);
-   puntoSimple* aiuda4 = puntoC->buscar(1, 0);
-   puntoSimple* aiuda5 = puntoC->buscar(0, 2);
-
-   
-    aiuda->setIzquierda(true);
-    aiuda2->setDerecha(true);
-    aiuda->setAbajo(true);
-    aiuda3->setIzquierda(true);
-    aiuda4->setDerecha(true);
-    aiuda5->setAbajo(true);
-   
-   
-
+   puntoSimple* supIzq = puntoC->buscar(2, 2);
+   puntoSimple* supDerecha = puntoC->buscar(2, 3);
+   puntoSimple* infIzq = puntoC->buscar(3, 2);
+   puntoSimple* infDerecha = puntoC->buscar(3, 3);
+  
+   //------------
+   supIzq->setDerecha(true);
+   supIzq->setAbajo(true);
+   //-------------
+   infIzq->setArriba(true);
+   infIzq->setDerecha(true);
+   //---------------------
+   supDerecha->setAbajo(true);
+   supDerecha->setIzquierda(true);
+   //---------------------
+   infDerecha->setArriba(true);
+   infDerecha->setIzquierda(true);
+   //-----------------------
     cout << puntoC->toString();
-    cout<<puntoC->conquistado(0,1);
+    cout<<puntoC->conquistado(2,3);
    
     cin.get();
     return 0;

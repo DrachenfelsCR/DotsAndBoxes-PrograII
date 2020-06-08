@@ -34,25 +34,23 @@ string puntoCompuesto::toString()
 	for (int i = 0; i < filas; i++)
 	{
 		flag = 0;
+		auxabajo << endl;
 		for (int j = 0; j < columnas; j++)
 		{
 			if (i != filas - 1 && m[i][j]->checkAbajo())
 			{
 				flag++;
-				auxabajo << endl;
-				for (int i = 0; i < j; i++)
-				{
-					auxabajo << "\t";
-				}
+				auxabajo << "\t";
+				auxabajo << m[i][j]->toStringDown();
+			}
+			else
+			{
+				auxabajo << "\t";
 				auxabajo << m[i][j]->toStringDown();
 			}
 			//-----MEDIO----
 			s << m[i][j]->toString();
 			//-----------
-		}
-		if (flag == 0)
-		{
-			auxabajo << endl;
 		}
 		s << auxabajo.str();
 		s << endl;

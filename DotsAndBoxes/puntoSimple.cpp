@@ -125,7 +125,7 @@ string puntoSimple::toString()
 	}
 	else
 	{
-		p << "\t";
+		p << "";
 	}
 	return p.str();
 }

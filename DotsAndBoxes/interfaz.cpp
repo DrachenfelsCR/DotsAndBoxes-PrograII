@@ -140,7 +140,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 	//--------------------------------------
 	puntoCompuesto* campoJuego = new puntoCompuesto(9, 14);
 
-	for (int i = 0; i < filas1; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		for (int j = columnas1; j < 14; j++)
 		{

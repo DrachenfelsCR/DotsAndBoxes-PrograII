@@ -8,7 +8,11 @@ public:
 	puntoCompuesto(int, int);
 	~puntoCompuesto();
 	string toString();
-	bool conquistado(int,int);
+	bool conquistadoIzquierdaSup(int,int);
+	bool conquistadoAbajoIzquierda(int,int);
+	bool consquistadoIzquierdaInf(int,int);
+	bool consquitadoAbajoDerecha(int,int);
+	bool consquistadoTotal(int, int);
 	puntoSimple* buscar(int,int);
 //-------------------------
 	puntoSimple*** getArreglo();

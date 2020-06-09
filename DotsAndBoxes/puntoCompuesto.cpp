@@ -73,23 +73,90 @@ string puntoCompuesto::toString()
 	return s.str();
 }
 
-bool puntoCompuesto::conquistado(int x, int y)
+bool puntoCompuesto::conquistadoIzquierdaSup(int x, int y)
 {
-	int cont = 0;
+	
 	for (int i = 0; i < filas; i++)
 	{
 		for (int j  = 0;  j< columnas ; j++)
 		{
-			if ((buscar(x,y+1)->checkIzq() == true || buscar(x,y)->checkIzq()==true) || buscar(x-1,y)->checkIzq()==true && buscar(x,y)->checkAbajo()==true && (buscar(x, y+1)->checkAbajo()==true))
+			if ((buscar(x,y)->checkDerecha()==true)|| (buscar(x,y)->checkIzq() == true ) )
 			{
 				
-				cout << "tiene Cuadro" << endl;
+				cout << "tiene Izquierda Superior" << endl;
 				
 				return true;
 			}
 		}
 	}
 	cout << "no lo encontro" << endl;
+	return false;
+}
+
+bool puntoCompuesto::conquistadoAbajoIzquierda(int x, int y)
+{
+	for (int i = 0; i < filas; i++)
+	{
+		for (int j = 0; j < columnas; j++)
+		{
+			if ((buscar(x,y)->checkAbajo() == true))
+			{
+
+				cout << "tiene Abajo Izquierda" << endl;
+
+				return true;
+			}
+		}
+	}
+	cout << "no encontro el nodo abajo izquierda" << endl;
+	return false;
+}
+
+bool puntoCompuesto::consquistadoIzquierdaInf(int x, int y)
+{
+	for (int i = 0; i < filas; i++)
+	{
+		for (int j = 0; j < columnas; j++)
+		{
+			if ((buscar(x+1,y+1)->checkIzq() == true))
+			{
+
+				cout << "tiene inferior derecha" << endl;
+
+				return true;
+			}
+		}
+	}
+	cout << "no encontro el " << endl;
+	return false;
+}
+
+bool puntoCompuesto::consquitadoAbajoDerecha(int x, int y)
+{
+	for (int i = 0; i < filas; i++)
+	{
+		for (int j = 0; j < columnas; j++)
+		{
+			if ((buscar(x , y+1)->checkAbajo() == true)||buscar(x,y)->checkArriba())
+			{
+
+				cout << "tiene abajo derecha" << endl;
+
+				return true;
+			}
+		}
+	}
+	cout << "no lo encontro" << endl;
+	return false;
+}
+
+bool puntoCompuesto::consquistadoTotal(int x, int y)
+{
+	if (conquistadoAbajoIzquierda(x,y)&&conquistadoIzquierdaSup(x,y)&& consquistadoIzquierdaInf(x,y)&&consquitadoAbajoDerecha(x,y))
+	{
+		cout << "Si tiene cuadro carepicha" << endl;
+		return true;
+	}
 	return false;
 }
 

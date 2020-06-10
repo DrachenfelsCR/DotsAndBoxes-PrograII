@@ -6,6 +6,7 @@
 interfaz::interfaz()
 {
 	opc = 0;
+	this->campoJuegoC = nullptr;
 }
 
 interfaz::~interfaz()
@@ -57,6 +58,7 @@ void interfaz::jugadorVrsPersona()
 	limpiaPantalla();
 	string nombre1;
 	string nombre2;
+	stringstream NombrePartida;
 	int id1 = 1;
 	int id2 = 2;
 	int tresXdos = 0;
@@ -77,6 +79,8 @@ void interfaz::jugadorVrsPersona()
 		cout << "Identificador del segundo jugador :" << id2;
 		imprimirCadena("\n");
 		jugador* player2 = new jugador(nombre2, id2);
+		//---------------------------------------
+		NombrePartida << nombre1 << " vs " << nombre2;
 		//---------------------------------------
 		imprimirCadena("Digite cuantos campos SeisPuntos (3x2) desea(maximo 7!):  ");
 		tresXdos = leerEntero();
@@ -103,12 +107,16 @@ void interfaz::jugadorVrsPersona()
 		cin.get();
 		limpiaPantalla();
 		//---------------------------------------
-		puntoCompuesto* campodeJuego = crearCampoDeJuego(tresXdos, tresXtres, tresXcinco);
+		this->campoJuegoC = crearCampoDeJuego(tresXdos, tresXtres, tresXcinco);
+		this->campoJuegoC->setNombre(NombrePartida.str());
 		int mayor = mayorDeTresEnteros(2*tresXdos, 3*tresXtres, 5*tresXcinco);
 		//------------------------------------------
-		mostrarCampo(mayor,campodeJuego);
+		this->campoJuegoC->setMayor(mayor);
+		this->campoJuegoC->setJugador1(player1);
+		this->campoJuegoC->setJugador2(player2);
+		mostrarCampo(mayor, this->campoJuegoC);
 		//------EMPIEZA TURNO-------------
-		turnoDeJuego(player1,player2, mayor, campodeJuego);
+		turnoDeJuego(player1,player2, mayor, this->campoJuegoC);
 	}
 	catch (...)
 	{
@@ -125,6 +133,59 @@ void interfaz::jugadorVrsMaquina()
 void interfaz::cargarPartida()
 {
 	limpiaPantalla();
+	excepcionEspecifica falloVacio;
+	string nombreJ1;
+	string nombreJ2;
+	int mayor;
+	string* ptrNombreJ1=  &nombreJ1;
+	string* ptrNombreJ2 = &nombreJ2;
+	int* ptrMayor = &mayor;
+	int contador = 0;
+	try
+	{
+		string* nombrePartidas = new string[20];
+		for (int i = 0; i < 20; i++)
+		{
+			nombrePartidas[i] = "";
+		}
+		analizador analiza;
+		int seleccion = 0;
+		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor);
+		for (int i = 0; i < 20; i++)
+		{
+			if (nombrePartidas[i] != "")
+			{
+				cout << i + 1 << ". " << nombrePartidas[i] << endl;
+				contador++;
+			}	
+			else 
+			{
+				break;
+			}
+		}
+		if (contador == 0)
+		{
+			throw falloVacio;
+		}
+		imprimirCadena("Escriba el numero de partida que quiere cargar");
+		seleccion = leerSeleccion(contador);
+		stringstream partidaCargar;
+		partidaCargar << "archivos/"<<nombrePartidas[seleccion - 1] << ".txt";
+		//-------------------------------------------------------------
+		this->campoJuegoC = new puntoCompuesto(9, 14);
+		jugador* jugadorN1 = new jugador(nombreJ1,1);
+		jugador* jugadorN2 = new jugador(nombreJ2, 2);
+		this->campoJuegoC->setJugador1(jugadorN1);
+		this->campoJuegoC->setJugador2(jugadorN2);
+		analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str());
+		//--------------------------------------------------------------------
+		mostrarCampo(mayor, this->campoJuegoC);
+		turnoDeJuego(jugadorN1, jugadorN2, mayor, this->campoJuegoC);
+	}
+	catch (excepcionEspecifica)
+	{
+		imprimirCadena("No hay partidas guardadas");
+	}
 }
 
 puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tresXcinco)
@@ -168,7 +229,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 
 void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoCompuesto* campoJ)
 {
-	int turnos = 5;
+	int turnos = 1;
 	int turnoActual = 0;
 	excepcionEspecifica excep;
 	try
@@ -186,15 +247,20 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			//------------------------------------------
 			turnos--;
 		}
+		//---------------------------------------
+		campoJ->guardarNombre("PartidasJugadas.txt");
+		stringstream r;
+		r << "archivos/" << campoJ->getNombre() <<".txt";
+		campoJ->guardar(r.str());
 	}
 	catch (...)
 	{
 	}
 	
 }
-void interfaz::turnoJugador(jugador* p1,  int columnasMax, puntoCompuesto* campoJ)
+void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ)
 {
-			cout << "Turno de Jugador " << p1->getNombre() << endl;
+			cout << "Turno de Jugador " << p->getNombre() << endl;
 			int fila = 0;
 			int columna = 0;
 			imprimirCadena("Punto de origen, fila: ");
@@ -212,7 +278,7 @@ void interfaz::turnoJugador(jugador* p1,  int columnasMax, puntoCompuesto* campo
 				limpiaPantalla();
 				mostrarCampo(columnasMax, campoJ);
 				//----------------------------------------------------
-				cout << "Turno de Jugador " << p1->getNombre() << endl;
+				cout << "Turno de Jugador " << p->getNombre() << endl;
 				int fila = 0;
 				int columna = 0;
 				imprimirCadena("Punto de origen, fila: ");
@@ -247,7 +313,7 @@ void interfaz::turnoJugador(jugador* p1,  int columnasMax, puntoCompuesto* campo
 				limpiaPantalla();
 				mostrarCampo(columnasMax, campoJ);
 				//----------------------------------------------------
-				cout << "Turno de Jugador " << p1->getNombre() << endl;
+				cout << "Turno de Jugador " << p->getNombre() << endl;
 				int fila = 0;
 				int columna = 0;
 				imprimirCadena("Punto de destino, fila: ");
@@ -278,6 +344,9 @@ void interfaz::turnoJugador(jugador* p1,  int columnasMax, puntoCompuesto* campo
 				puntoOrigen->setIzquierda(true);
 				puntoDestino->setDerecha(true);
 			}
+			//---------movivimiento realizado----
+			//puntoDestino->conquistado();
+			//-------------------------------
 			imprimirCadena("< digite enter >");
 			cin.get();
 }

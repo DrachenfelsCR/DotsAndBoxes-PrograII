@@ -2,6 +2,8 @@
 
 puntoCompuesto::puntoCompuesto(int filas, int columnas)
 {
+	this->nombre = "";
+	this->mayor = 0;
 	this->filas = filas;
 	this->columnas = columnas;
 	m = new puntoSimple * *[filas];
@@ -23,7 +25,14 @@ puntoCompuesto::puntoCompuesto(int filas, int columnas)
 
 puntoCompuesto::~puntoCompuesto()
 {
-
+	for (int i = 0; i < filas; i++)
+	{
+		for (int j = 0; j < columnas; j++)
+		{
+			delete m[i][j];
+		}
+	}
+	delete m;
 }
 
 string puntoCompuesto::toString()
@@ -166,7 +175,178 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 {
 	return m[x][y];
 }
+
  puntoSimple*** puntoCompuesto::getArreglo()
 {
 	return this->m;
 }
+
+
+ void puntoCompuesto::guardar(string archivo)
+ {
+	 ofstream outp;
+	 outp.open(archivo.c_str(), ofstream::app);
+	 for (int i = 0; i < filas; i++)
+	 {
+		 for (int j = 0; j < columnas; j++)
+		 {
+			 if (m[i][j] != nullptr)
+			 {
+				 outp << i << '\t';
+				 outp << j << '\t';
+
+				 //----------------------------
+				 if (m[i][j]->checkIzq())
+				 {
+					 outp << "true" << '\t';
+				 }
+				 else
+				 {
+					 outp << "false" << '\t';
+				 }
+				 //----------------------------
+				 if (m[i][j]->checkArriba())
+				 {
+					 outp << "true" << '\t';
+				 }
+				 else
+				 {
+					 outp << "false" << '\t';
+				 }
+				 //----------------------------
+				 if (m[i][j]->checkDerecha())
+				 {
+					 outp << "true" << '\t';
+				 }
+				 else
+				 {
+					 outp << "false" << '\t';
+				 }
+				 //----------------------------
+				 if (m[i][j]->checkAbajo())
+				 {
+					 outp << "true" << '\n';
+				 }
+				 else
+				 {
+					 outp << "false" << '\n';
+				 }
+			 }
+			 else
+			 {
+				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\n';
+			 }
+		 }
+	 }
+ }
+
+ void puntoCompuesto::guardarNombre(string archivo)
+ {
+	 ofstream outp;
+	 outp.open(archivo.c_str(), ofstream::app);
+	 outp << this->jugador1->getNombre() << '\t';
+	 outp << this->jugador2->getNombre() << '\t';
+	 outp << this->mayor << '\t';
+	 outp << this->nombre << '\n';
+ }
+
+ void puntoCompuesto::setNombre(string nombre)
+ {
+	 this->nombre = nombre;
+ }
+
+ void puntoCompuesto::setJugador1(jugador* p1)
+ {
+	 this->jugador1 = p1;
+ }
+
+ void puntoCompuesto::setJugador2(jugador* p2)
+ {
+	 this->jugador2 = p2;
+ }
+
+ void puntoCompuesto::setMayor(int mayor)
+ {
+	 this->mayor = mayor;
+ }
+
+ int puntoCompuesto::getMayor()
+ {
+	 return this->mayor;
+ }
+
+ jugador* puntoCompuesto::getJugador1()
+ {
+	 return this->jugador1;
+ }
+
+ jugador* puntoCompuesto::getJugador2()
+ {
+	 return this->jugador2;
+ }
+
+ string puntoCompuesto::getNombre()
+ {
+	 return this->nombre;
+ }
+
+
+
+ /*void puntoCompuesto::guardar(string archivo)
+ {
+	 stringstream s;
+	 stringstream auxabajo;
+	 int flag;
+	 for (int i = 0; i < filas; i++)
+	 {
+		 int fila = i;
+		 flag = 0;
+		 auxabajo << endl;
+		 for (int j = 0; j < columnas; j++)
+		 {
+			 if (m[i][j] != nullptr)
+			 {
+				 if (i != filas - 1 && m[i][j]->checkAbajo())
+				 {
+					 flag++;
+					 auxabajo << "\t";
+					 auxabajo << m[i][j]->toStringDown();
+				 }
+				 else
+				 {
+					 auxabajo << "\t";
+					 auxabajo << m[i][j]->toStringDown();
+				 }
+				 //-----MEDIO----
+				 if (fila == i)
+				 {
+					 s << i << "|";
+					 fila++;
+				 }
+				 s << m[i][j]->toString();
+				 //-----------
+			 }
+			 else
+			 {
+				 s << "\t";
+			 }
+
+		 }
+		 s << auxabajo.str();
+		 s << endl;
+		 auxabajo.str("");
+	 }
+ }*/
+
+
+
+
+
+
+
+
+
+ 

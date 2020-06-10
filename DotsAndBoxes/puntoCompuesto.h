@@ -32,6 +32,11 @@ public:
 	jugador* getJugador1();
 	jugador* getJugador2();
 	string getNombre();
+//-----------------------------
+	void movimientoAbajo(int,int, jugador*);
+	void movimientoArriba(int, int, jugador*);
+	void movimientoDerecha(int, int, jugador*);
+	void movimientoIzquierda(int, int, jugador*);
 
 protected:
 	string nombre;
@@ -41,6 +46,7 @@ protected:
 	int filas;
 	int columnas;
 	int mayor;
+	int filasM;
 	int columnas1;
 	int columnas2;
 	int columnas3;

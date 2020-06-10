@@ -65,6 +65,7 @@ void interfaz::jugadorVrsPersona()
 	int tresXtres = 0;
 	int tresXcinco = 0;
 	excepcionEspecifica excepcion;
+	excepcionSecundaria execepcionSe;
 	try
 	{
 		//---------------------------------------
@@ -100,6 +101,10 @@ void interfaz::jugadorVrsPersona()
 		{
 			throw excepcion;
 		}
+		if (tresXdos == 0 && tresXtres == 0 && tresXcinco == 0)
+		{
+			throw execepcionSe;
+		}
 		//---------------------------------------
 		imprimirCadena("\n");
 		imprimirCadena("Perfecto!!! \n");
@@ -119,9 +124,13 @@ void interfaz::jugadorVrsPersona()
 		//------EMPIEZA TURNO-------------
 		turnoDeJuego(player1,player2, mayor, this->campoJuegoC);
 	}
-	catch (...)
+	catch (excepcionEspecifica)
 	{
 	imprimirCadena("Ha digitado un numero mayor a lo permitido");
+	}
+	catch (excepcionSecundaria)
+	{
+		imprimirCadena("Si solo digita ceros, entonces no existira campo de juego!");
 	}
 	
 }
@@ -205,29 +214,164 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 	int columnas2 = 3 * tresXtres;
 	int columnas3 = 5 * tresXcinco;
 	//--------------------------------------
+	int filas1 = 3;
+	int filas2 = 6;
+	int filas3 = 9;
+	//--------------------------------------
 	puntoCompuesto* campoJuego = new puntoCompuesto(9, 14);
-
-	for (int i = 0; i < 3; i++)
+	//////////////////////////////////////////////////////////////////////
+	if (tresXdos == 0)
 	{
-		for (int j = columnas1; j < 14; j++)
+		for (int i2 = 0; i2 < 3; i2++)
 		{
-			(campoJuego->getArreglo())[i][j] = nullptr;
+			for (int j2 = columnas2; j2 < 14; j2++)
+			{
+				(campoJuego->getArreglo())[i2][j2] = nullptr;
+			}
+
+		}
+		for (int i3 = 3; i3 < 6; i3++)
+		{
+			for (int j3 = columnas3; j3 < 14; j3++)
+			{
+				(campoJuego->getArreglo())[i3][j3] = nullptr;
+			}
+		}
+		for (int i = 6; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
 		}
 	}
-	for (int i2 = 3; i2 < 6; i2++)
+	else if (tresXtres == 0)
 	{
-		for (int j2 = columnas2; j2 < 14; j2++)
+		for (int i = 0; i < 3; i++)
 		{
-			(campoJuego->getArreglo())[i2][j2] = nullptr;
+			for (int j = columnas1; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
 		}
+		for (int i3 = 3; i3 < 6; i3++)
+		{
+			for (int j3 = columnas3; j3 < 14; j3++)
+			{
+				(campoJuego->getArreglo())[i3][j3] = nullptr;
+			}
 
-	}
-	for (int i3 = 6; i3 < 9; i3++)
-	{
-		for (int j3 = columnas3; j3 < 14; j3++)
-		{
-			(campoJuego->getArreglo())[i3][j3] = nullptr;
 		}
+		for (int ii = 6; ii < 9; ii++)
+		{
+			for (int jj = 0; jj < 14; jj++)
+			{
+				(campoJuego->getArreglo())[ii][jj] = nullptr;
+			}
+		}
+	}
+	else if (tresXcinco == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas1; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i2 = 3; i2 < 6; i2++)
+		{
+			for (int j2 = columnas2; j2 < 14; j2++)
+			{
+				(campoJuego->getArreglo())[i2][j2] = nullptr;
+			}
+
+		}
+		for (int i3 = 6; i3 < 9; i3++)
+		{
+			for (int j3 = 0; j3 < 14; j3++)
+			{
+				(campoJuego->getArreglo())[i3][j3] = nullptr;
+			}
+		}
+	}
+	//////////////////////////////////////////////////////////////////////
+	else if (tresXdos == 0 && tresXtres == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas3; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else if (tresXdos == 0 && tresXcinco == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas2; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else if (tresXtres == 0 && tresXcinco == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas1; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas1; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i2 = 3; i2 < 6; i2++)
+		{
+			for (int j2 = columnas2; j2 < 14; j2++)
+			{
+				(campoJuego->getArreglo())[i2][j2] = nullptr;
+			}
+
+		}
+		for (int i3 = 6; i3 < 9; i3++)
+		{
+			for (int j3 = columnas3; j3 < 14; j3++)
+			{
+				(campoJuego->getArreglo())[i3][j3] = nullptr;
+			}
+		}
+		
 
 	}
 	return campoJuego;
@@ -235,7 +379,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 
 void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoCompuesto* campoJ)
 {
-	int turnos = 1;
+	int turnos = 4;
 	int turnoActual = 0;
 	excepcionEspecifica excep;
 	try
@@ -329,30 +473,33 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				puntoSimple* puntoOrigen = campoJ->buscar(fila, columna);
 				//----------------------------------------------------
 			}
+			puntoOrigen->setJugador(p);
+			puntoDestino->setJugador(p);
 			//-----FIN DE VERIFICACION DEL PUNTO DE DESTINO NULO
 			if (fila2 > fila)
 			{
 				puntoOrigen->setAbajo(true);
 				puntoDestino->setArriba(true);
+				campoJ->movimientoAbajo(fila2, columna2, p);
 			}
 			else if (fila2 < fila)
 			{
 				puntoOrigen->setArriba(true);
 				puntoDestino->setAbajo(true);
+				campoJ->movimientoArriba(fila2, columna2, p);
 			}
 			else if (columna2 > columna)
 			{
 				puntoOrigen->setDerecha(true);
 				puntoDestino->setIzquierda(true);
+				campoJ->movimientoDerecha(fila2, columna2, p);
 			}
 			else if (columna2 < columna)
 			{
 				puntoOrigen->setIzquierda(true);
 				puntoDestino->setDerecha(true);
+				campoJ->movimientoIzquierda(fila2, columna2, p);
 			}
-			//---------movivimiento realizado----
-			//puntoDestino->conquistado();
-			//-------------------------------
 			imprimirCadena("< digite enter >");
 			cin.get();
 }

@@ -1,2 +1,5 @@
 Faker	Dopa	6	3	2	1	Faker vs Dopa
 Loria	Hitler	10	5	2	1	Loria vs Hitler
+David	Jose	10	3	1	2	David vs Jose
+David	Jose	6	3	2	1	David vs Jose
+		6	3	2	1	 vs 

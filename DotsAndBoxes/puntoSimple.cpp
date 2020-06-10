@@ -3,6 +3,7 @@
 puntoSimple::puntoSimple()
 {
 	this->conquistado = true;
+	this->conquista = false;
 	arriba = false;
 	abajo = false;
 	izquierda = false;
@@ -19,6 +20,11 @@ puntoSimple::~puntoSimple()
 
 void puntoSimple::setCodigo(int)
 {
+}
+
+void puntoSimple::setConquista(bool c)
+{
+	this->conquista = c;
 }
 
 void puntoSimple::setJugador(jugador* jugadorActual)
@@ -121,9 +127,13 @@ string puntoSimple::toString()
  string puntoSimple::toStringDown()
 {
 	stringstream p;
-	if (abajo)
+	 if (conquista)
 	{
-		p << "|";
+		p << "| " << this->jugadorActual->getNombre();
+	}
+	else if (abajo)
+	{
+		 p << "|";
 	}
 	else
 	{

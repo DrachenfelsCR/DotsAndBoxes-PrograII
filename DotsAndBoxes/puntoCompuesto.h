@@ -37,7 +37,7 @@ public:
 	void movimientoArriba(int, int, jugador*);
 	void movimientoDerecha(int, int, jugador*);
 	void movimientoIzquierda(int, int, jugador*);
-
+	void setFilasM();
 protected:
 	string nombre;
 	jugador* jugador1;

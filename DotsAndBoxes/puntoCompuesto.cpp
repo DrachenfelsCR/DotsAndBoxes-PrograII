@@ -331,6 +331,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if ((m[i-1][j + 1])->checkIzq())
 				 {
 					 (m[i - 1][j])->setConquista(true);
+					 (m[i][j])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
@@ -345,6 +346,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				if ((m[i - 1][j - 1])->checkDerecha())
 				{
 					(m[i-1][j-1])->setConquista(true);
+					(m[i][j])->setJugador(jugadorAct);
 					jugadorAct->aumentarPuntos(1);
 				}
 			}
@@ -370,6 +372,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				if ((m[i - 1][j + 1])->checkIzq())
 				{
 					(m[i - 1][j])->setConquista(true);
+					(m[i][j])->setJugador(jugadorAct);
 					jugadorAct->aumentarPuntos(1);
 				}
 				}
@@ -389,6 +392,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if ((m[i + 1][j + 1])->checkIzq())
 				 {
 					 (m[i][j])->setConquista(true);
+					 (m[i][j])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
@@ -403,6 +407,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if ((m[i + 1][j - 1])->checkDerecha())
 				 {
 					 (m[i][j])->setConquista(true);
+					 (m[i][j])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
@@ -417,6 +422,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if ((m[i + 1][j + 1])->checkIzq())
 				 {
 					 (m[i][j])->setConquista(true);
+					 (m[i][j])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);					 
 				 }			
 			 }		
@@ -428,6 +434,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if ((m[i + 1][j - 1])->checkDerecha())
 				 {
 						 (m[i][j-1])->setConquista(true);
+						 (m[i][j-1])->setJugador(jugadorAct);
 						 jugadorAct->aumentarPuntos(1);				 
 				 }
 					 
@@ -439,36 +446,6 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 
  void puntoCompuesto::movimientoDerecha(int i, int j, jugador* jugadorAct)
  {
-	 if (i == 0)
-	 {
-		 if (m[i][j]->checkAbajo())
-		 {
-			 if (m[i+1][j]->checkIzq())
-			 {
-				 if (m[i+1][j-1]->checkArriba())
-				 {				 
-					 m[i][j-1]->setConquista(true);
-					 jugadorAct->aumentarPuntos(1);
-				 }
-			 }
-		 }
-	 }
-	 else if (i == 9)
-	 {
-		 if (m[i][j]->checkArriba())
-		 {
-			 if (m[i - 1][j]->checkIzq())
-			 {
-				 if (m[i - 1][j - 1]->checkAbajo())
-				 {
-					 m[i - 1][j-1]->setConquista(true);
-					 jugadorAct->aumentarPuntos(1);
-				 }
-			 }
-		 }
-	 }
-	 else
-	 {
 		 if (m[i][j]->checkArriba())
 		 {
 			 if (m[i - 1][j]->checkIzq())
@@ -476,6 +453,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if (m[i - 1][j - 1]->checkAbajo())
 				 {
 					 m[i - 1][j - 1]->setConquista(true);
+					 m[i - 1][j - 1]->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
@@ -487,17 +465,16 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if (m[i + 1][j - 1]->checkArriba())
 				 {
 					 m[i][j-1]->setConquista(true);
+					 (m[i][j-1])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
 		 }
-	 }
  }
 
  void puntoCompuesto::movimientoIzquierda(int i, int j, jugador* jugadorAct)
  {
-	 if (i == 0)
-	 {
+		 //------------
 		 if (m[i][j]->checkAbajo())
 		 {
 			 if (m[i + 1][j]->checkDerecha())
@@ -505,13 +482,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if (m[i + 1][j + 1]->checkArriba())
 				 {
 					 m[i][j]->setConquista(true);
+					 (m[i][j])->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
 		 }
-	 }
-	 else if (i == 9)
-	 {
+		 //------------
 		 if (m[i][j]->checkArriba())
 		 {
 			 if (m[i - 1][j]->checkDerecha())
@@ -519,34 +495,20 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 if (m[i - 1][j + 1]->checkAbajo())
 				 {
 					 m[i - 1][j]->setConquista(true);
+					 m[i - 1][j]->setJugador(jugadorAct);
 					 jugadorAct->aumentarPuntos(1);
 				 }
 			 }
 		 }
-	 }
-	 else
+ }
+
+ void puntoCompuesto::setFilasM()
+ {
+	 for (int i = 0; i < filas; i++)
 	 {
-		 if (m[i][j]->checkAbajo())
+		 if (m[i][0] == nullptr)
 		 {
-			 if (m[i + 1][j]->checkIzq())
-			 {
-				 if (m[i + 1][j + 1]->checkArriba())
-				 {
-					 m[i][j]->setConquista(true);
-					 jugadorAct->aumentarPuntos(1);
-				 }
-			 }
-		 }
-		 if (m[i][j]->checkArriba())
-		 {
-			 if (m[i - 1][j]->checkIzq())
-			 {
-				 if (m[i - 1][j - 1]->checkAbajo())
-				 {
-					 m[i - 1][j]->setConquista(true);
-					 jugadorAct->aumentarPuntos(1);
-				 }
-			 }
+			 this->filasM = i;
 		 }
 	 }
  }

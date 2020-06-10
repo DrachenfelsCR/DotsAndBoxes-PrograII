@@ -232,8 +232,10 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 					 outp << "false" << '\n';
 				 }
 			 }
-			 else
+			 else if(m[i][j] == nullptr)
 			 {
+				 outp << i << '\t';
+				 outp << j << '\t';
 				 outp << "vacio" << '\t';
 				 outp << "vacio" << '\t';
 				 outp << "vacio" << '\t';
@@ -250,6 +252,9 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 outp << this->jugador1->getNombre() << '\t';
 	 outp << this->jugador2->getNombre() << '\t';
 	 outp << this->mayor << '\t';
+	 outp << this->columnas1 << '\t';
+	 outp << this->columnas2 << '\t';
+	 outp << this->columnas3 << '\t';
 	 outp << this->nombre << '\n';
  }
 
@@ -273,6 +278,28 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 this->mayor = mayor;
  }
 
+ void puntoCompuesto::setColumnas(int c1, int c2, int c3)
+ {
+	 this->columnas1 = c1;
+	 this->columnas2 = c2;
+	 this->columnas3 = c3;
+ }
+
+ int puntoCompuesto::getcolumna1()
+ {
+	 return this->columnas1;
+ }
+
+ int puntoCompuesto::getcolumna2()
+ {
+	 return this->columnas2;
+ }
+
+ int puntoCompuesto::getcolumna3()
+ {
+	 return this->columnas3;
+ }
+
  int puntoCompuesto::getMayor()
  {
 	 return this->mayor;
@@ -292,60 +319,6 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
  {
 	 return this->nombre;
  }
-
-
-
- /*void puntoCompuesto::guardar(string archivo)
- {
-	 stringstream s;
-	 stringstream auxabajo;
-	 int flag;
-	 for (int i = 0; i < filas; i++)
-	 {
-		 int fila = i;
-		 flag = 0;
-		 auxabajo << endl;
-		 for (int j = 0; j < columnas; j++)
-		 {
-			 if (m[i][j] != nullptr)
-			 {
-				 if (i != filas - 1 && m[i][j]->checkAbajo())
-				 {
-					 flag++;
-					 auxabajo << "\t";
-					 auxabajo << m[i][j]->toStringDown();
-				 }
-				 else
-				 {
-					 auxabajo << "\t";
-					 auxabajo << m[i][j]->toStringDown();
-				 }
-				 //-----MEDIO----
-				 if (fila == i)
-				 {
-					 s << i << "|";
-					 fila++;
-				 }
-				 s << m[i][j]->toString();
-				 //-----------
-			 }
-			 else
-			 {
-				 s << "\t";
-			 }
-
-		 }
-		 s << auxabajo.str();
-		 s << endl;
-		 auxabajo.str("");
-	 }
- }*/
-
-
-
-
-
-
 
 
 

@@ -59,11 +59,10 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
 			}
 			else
 			{
-				puntoSimple* coordenada = matriz->buscar(jReal, iReal);
-				coordenada->setIzquierda(izquierdaReal);
-				coordenada->setArriba(arribaReal);
-				coordenada->setDerecha(derechaReal);
-				coordenada->setAbajo(abajoReal);
+					(matriz->getArreglo())[iReal][jReal]->setIzquierda(izquierdaReal);
+					(matriz->getArreglo())[iReal][jReal]->setArriba(arribaReal);
+					(matriz->getArreglo())[iReal][jReal]->setDerecha(derechaReal);
+					(matriz->getArreglo())[iReal][jReal]->setAbajo(abajoReal);
 			}
 			
 		}
@@ -71,13 +70,21 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
 	input.close();
 }
 
-void analizador::recuperarNombrePartidas(string archivo, string* v, string* nombre1, string* nombre2, int* mayorPtr)
+void analizador::recuperarNombrePartidas(string archivo, string* v, string* nombre1, string* nombre2, int* mayorPtr, int* ptrColumna1, int* ptrColumna2, int* ptrColumna3)
 {
 	ifstream input;
 	string vectorNombres[20];
 	string nomJugador1;
 	string nomJugador2;
 	string mayorStr;
+	//-----------------
+	string columnas1str;
+	string columnas2str;
+	string columnas3str;
+	//-------------
+	int columnas1;
+	int columnas2;
+	int columnas3;
 	int mayor = 0;
 	int i = 0;
 	input.open(archivo.c_str());
@@ -86,8 +93,14 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* nomb
 		getline(input, nomJugador1, '\t');
 		getline(input, nomJugador2, '\t');
 		getline(input, mayorStr, '\t');
+		getline(input, columnas1str, '\t');
+		getline(input, columnas2str, '\t');
+		getline(input, columnas3str, '\t');
 		getline(input, vectorNombres[i], '\n');
 		mayor = convertirInt(mayorStr);
+		columnas1 = convertirInt(columnas1str);
+		columnas2 = convertirInt(columnas2str);
+		columnas3= convertirInt(columnas3str);
 		if (!input.eof())
 		{
 			v[i] = vectorNombres[i];

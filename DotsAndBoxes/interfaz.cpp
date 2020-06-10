@@ -108,6 +108,7 @@ void interfaz::jugadorVrsPersona()
 		limpiaPantalla();
 		//---------------------------------------
 		this->campoJuegoC = crearCampoDeJuego(tresXdos, tresXtres, tresXcinco);
+		this->campoJuegoC->setColumnas(tresXdos, tresXtres, tresXcinco);
 		this->campoJuegoC->setNombre(NombrePartida.str());
 		int mayor = mayorDeTresEnteros(2*tresXdos, 3*tresXtres, 5*tresXcinco);
 		//------------------------------------------
@@ -137,6 +138,14 @@ void interfaz::cargarPartida()
 	string nombreJ1;
 	string nombreJ2;
 	int mayor;
+	//------
+	int columna1;
+	int columna2;
+	int columna3;
+	int* ptrColumna1 = &columna1;
+	int* ptrColumna2 = &columna2;
+	int* ptrColumna3 = &columna3;
+	//------
 	string* ptrNombreJ1=  &nombreJ1;
 	string* ptrNombreJ2 = &nombreJ2;
 	int* ptrMayor = &mayor;
@@ -150,7 +159,7 @@ void interfaz::cargarPartida()
 		}
 		analizador analiza;
 		int seleccion = 0;
-		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor);
+		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3);
 		for (int i = 0; i < 20; i++)
 		{
 			if (nombrePartidas[i] != "")
@@ -177,6 +186,7 @@ void interfaz::cargarPartida()
 		jugador* jugadorN2 = new jugador(nombreJ2, 2);
 		this->campoJuegoC->setJugador1(jugadorN1);
 		this->campoJuegoC->setJugador2(jugadorN2);
+		this->campoJuegoC->setColumnas(columna1, columna2, columna3);
 		analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str());
 		//--------------------------------------------------------------------
 		mostrarCampo(mayor, this->campoJuegoC);
@@ -194,10 +204,6 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 	int columnas1 = 2 * tresXdos;
 	int columnas2 = 3 * tresXtres;
 	int columnas3 = 5 * tresXcinco;
-	//--------------------------------------
-	int filas1 = tresXdos;
-	int filas2 = tresXtres;
-	int filas3 = tresXcinco;
 	//--------------------------------------
 	puntoCompuesto* campoJuego = new puntoCompuesto(9, 14);
 

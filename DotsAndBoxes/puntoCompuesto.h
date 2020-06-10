@@ -24,6 +24,10 @@ public:
 	void setJugador1(jugador*);
 	void setJugador2(jugador*);
 	void setMayor(int);
+	void setColumnas(int,int,int);
+	int getcolumna1();
+	int getcolumna2();
+	int getcolumna3();
 	int getMayor();
 	jugador* getJugador1();
 	jugador* getJugador2();
@@ -37,6 +41,9 @@ protected:
 	int filas;
 	int columnas;
 	int mayor;
+	int columnas1;
+	int columnas2;
+	int columnas3;
 };
 
 

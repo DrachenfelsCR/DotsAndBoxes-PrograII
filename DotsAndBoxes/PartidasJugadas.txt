@@ -1,1 +1,2 @@
-DAVID	JOSE	6	DAVID vs JOSE
+Faker	Dopa	6	3	2	1	Faker vs Dopa
+Loria	Hitler	10	5	2	1	Loria vs Hitler

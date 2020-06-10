@@ -11,6 +11,7 @@ public:
 	int y;
 	bool cuadrado;
 	bool conquistado;
+	bool conquista;
 	bool arriba; 
 	bool abajo;
 	bool izquierda;
@@ -31,6 +32,7 @@ public:
 //------SET-------------
 	void setConquistado(bool);
 	void setCodigo(int);
+	void setConquista(bool);
 	void setJugador(jugador*);
 	void setArriba(bool);
 	void setAbajo(bool);

@@ -2,6 +2,7 @@
 #include "puntoBase.h"
 #include "arreglo.h"
 #include "puntoSimple.h"
+#include <fstream>
 class puntoCompuesto : public puntoBase
 {
 public:
@@ -17,11 +18,25 @@ public:
 //-------------------------
 	puntoSimple*** getArreglo();
 //------------------------
+	void guardar(string);
+	void guardarNombre(string);
+	void setNombre(string);
+	void setJugador1(jugador*);
+	void setJugador2(jugador*);
+	void setMayor(int);
+	int getMayor();
+	jugador* getJugador1();
+	jugador* getJugador2();
+	string getNombre();
 
 protected:
+	string nombre;
+	jugador* jugador1;
+	jugador* jugador2;
 	puntoSimple*** m;
 	int filas;
 	int columnas;
+	int mayor;
 };
 
 

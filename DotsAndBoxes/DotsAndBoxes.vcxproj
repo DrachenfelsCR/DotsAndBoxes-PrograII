@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="analizador.h" />
     <ClInclude Include="arreglo.h" />
     <ClInclude Include="excepciones.h" />
     <ClInclude Include="interfaz.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="utiles.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="analizador.cpp" />
     <ClCompile Include="interfaz.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="main.cpp" />

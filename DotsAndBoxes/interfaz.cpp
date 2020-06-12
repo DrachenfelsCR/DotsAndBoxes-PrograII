@@ -487,7 +487,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 	}
 	
 }
-void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquinola* m,int columnasMax,puntoCompuesto* campoJ)
+void interfaz::turnoDeJuegovsMaquina(jugador* p, jugador* m,int columnasMax,puntoCompuesto* campoJ)
 {
 }
 void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ)

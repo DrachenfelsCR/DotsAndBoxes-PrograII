@@ -138,6 +138,81 @@ void interfaz::jugadorVrsPersona()
 void interfaz::jugadorVrsMaquina()
 {
 	limpiaPantalla();
+	string nombre1;
+	string nombre2="Maquina";
+	stringstream NombrePartida;
+	int id1 = 1;
+	int id2 = 2;
+	int tresXdos = 0;
+	int tresXtres = 0;
+	int tresXcinco = 0;
+	excepcionEspecifica excepcion;
+	excepcionSecundaria execepcionSe;
+	try
+	{
+		//---------------------------------------
+		imprimirCadena("Nombre del Jugador : ");
+		nombre1 = leerCadena();
+		cout << "Identificador del primer jugador :" << id1;
+		imprimirCadena("\n");
+		jugador* player1 = new jugador(nombre1, id1);
+		//---------------------------------------
+		
+		cout << "Identificador de la Maquina :" << id2;
+		imprimirCadena("\n");
+		jugador* player2 = new jugador(nombre2,id2);
+		//---------------------------------------
+		NombrePartida << nombre1 << " vs " << nombre2;
+		//---------------------------------------
+		imprimirCadena("Digite cuantos campos SeisPuntos (3x2) desea(maximo 7!):  ");
+		tresXdos = leerEntero();
+		if (tresXdos > 7)
+		{
+			throw excepcion;
+		}
+		imprimirCadena("Digite cuantos campos NuevePuntos (3x3) desea(maximo 4!):  ");
+		tresXtres = leerEntero();
+		if (tresXtres > 4)
+		{
+			throw excepcion;
+		}
+		imprimirCadena("Digite cuantos campos QuincePuntos  (3x5) desea(maximo 2!):  ");
+		tresXcinco = leerEntero();
+		if (tresXcinco > 2)
+		{
+			throw excepcion;
+		}
+		if (tresXdos == 0 && tresXtres == 0 && tresXcinco == 0)
+		{
+			throw execepcionSe;
+		}
+		//---------------------------------------
+		imprimirCadena("\n");
+		imprimirCadena("Perfecto!!! \n");
+		imprimirCadena("< digite enter >");
+		cin.get();
+		limpiaPantalla();
+		//---------------------------------------
+		this->campoJuegoC = crearCampoDeJuego(tresXdos, tresXtres, tresXcinco);
+		this->campoJuegoC->setColumnas(tresXdos, tresXtres, tresXcinco);
+		this->campoJuegoC->setNombre(NombrePartida.str());
+		int mayor = mayorDeTresEnteros(2 * tresXdos, 3 * tresXtres, 5 * tresXcinco);
+		//------------------------------------------
+		this->campoJuegoC->setMayor(mayor);
+		this->campoJuegoC->setJugador1(player1);
+		this->campoJuegoC->setJugador2(player2);
+		mostrarCampo(mayor, this->campoJuegoC);
+		//------EMPIEZA TURNO-------------
+		turnoDeJuego(player1, player2, mayor, this->campoJuegoC);
+	}
+	catch (excepcionEspecifica)
+	{
+		imprimirCadena("Ha digitado un numero mayor a lo permitido");
+	}
+	catch (excepcionSecundaria)
+	{
+		imprimirCadena("Si solo digita ceros, entonces no existira campo de juego!");
+	}
 }
 
 void interfaz::cargarPartida()
@@ -418,6 +493,9 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 	{
 	}
 	
+}
+void interfaz::turnoDeJuegovsMaquina(jugador* p, jugador* m,int columnasMax,puntoCompuesto* campoJ)
+{
 }
 void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ)
 {

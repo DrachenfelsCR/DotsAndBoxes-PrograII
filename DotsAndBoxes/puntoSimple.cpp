@@ -2,7 +2,6 @@
 
 puntoSimple::puntoSimple()
 {
-	this->conquistado = true;
 	this->conquista = false;
 	arriba = false;
 	abajo = false;
@@ -100,8 +99,7 @@ jugador* puntoSimple::getJugador()
 string puntoSimple::toString()
 {
 	stringstream s;
-	if (conquistado)
-	{
+
 		if (izquierda && derecha)
 		{
 			s << "---o----";
@@ -119,8 +117,6 @@ string puntoSimple::toString()
 		{
 			s << "\to";
 		}
-
-	}
 	return s.str();
 }
 
@@ -145,6 +141,11 @@ string puntoSimple::toString()
 bool puntoSimple::getConquistado()
 {
 	return false;
+}
+
+bool puntoSimple::getConquista()
+{
+	return this->conquista;
 }
 
 int puntoSimple::getCodigo()

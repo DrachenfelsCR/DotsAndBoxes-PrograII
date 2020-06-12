@@ -163,7 +163,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 {
 	if (conquistadoAbajoIzquierda(x,y)&&conquistadoIzquierdaSup(x,y)&& consquistadoIzquierdaInf(x,y)&&consquitadoAbajoDerecha(x,y))
 	{
-		cout << "Si tiene cuadro carepicha" << endl;
+		cout << "Si tiene cuadro" << endl;
 		return true;
 	}
 	return false;
@@ -194,7 +194,17 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 outp << i << '\t';
 				 outp << j << '\t';
-
+				 if (m[i][j]->getJugador() != nullptr)
+				 {
+					 outp << m[i][j]->getJugador()->getNombre() << '\t';
+					 outp << m[i][j]->getJugador()->getNumero() << '\t';
+				 }
+				 else
+				 {
+					 outp << "0" <<'\t';
+					 outp << "0" <<'\t';
+				 }
+				 
 				 //----------------------------
 				 if (m[i][j]->checkIzq())
 				 {
@@ -320,6 +330,80 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 return this->nombre;
  }
 
+ int puntoCompuesto::jugadasMaximas()
+ {
+	 if ( (columnas1 == 1 || columnas1 == 0) && (columnas2 == 1 || columnas2 == 0) && (columnas3 == 1 || columnas3 == 0))
+	 {
+		 return ((columnas1 * 7) + (columnas2 * 12) + (columnas3 * 22));
+	 }
+	 //---------------------------------------------------------
+	 else if ((columnas1 > 1 ) && (columnas2 == 0 || columnas2 == 1) && (columnas3 == 0 || columnas3 == 1))
+	 {
+		 return (((columnas1-1) * 3 + columnas1 * 7) + (columnas2 * 12) + (columnas3 * 22));
+	 }
+	 else if ((columnas2 > 1) && (columnas1 == 0 || columnas1 == 1) && (columnas3 == 0 || columnas3 == 1))
+	 {
+		 return (((columnas2-1) * 3 + columnas2 * 12) + (columnas1 * 7) + (columnas3 * 22));
+	 }
+	 else if ((columnas3 > 1) && (columnas1 == 0 || columnas1 == 1) && (columnas2 == 0 || columnas2 == 1))
+	 {
+		 return (((columnas3-1) * 3 + columnas3 * 22) + (columnas1 * 7) + (columnas2 * 12));
+	 }
+	 else if ((columnas1 > 1) && (columnas2 == 1 || columnas2 == 0))
+	 {
+		 return (((columnas1-1) * 7 + columnas1 * 3) + (columnas2 * 12 + columnas2 * 3));
+	 }
+	 else if ((columnas1 > 1) && (columnas3 == 1 || columnas3 == 0))
+	 {
+		 return (((columnas1-1) * 7 + columnas1 * 3) + (columnas3 * 22 + columnas3 * 3));
+	 }
+	 else if ((columnas2 > 1) && (columnas1 == 1 || columnas1 == 0))
+	 {
+		 return (((columnas2-1) * 12 + columnas2 * 3) + (columnas1 * 7 + columnas1 * 3));
+	 }
+	 else if ((columnas2 > 1) && (columnas3 == 1 || columnas3 == 0))
+	 {
+		 return (((columnas2-1) * 12 + columnas2 * 3) + (columnas3 * 7 + columnas3 * 3));
+	 }
+	 else if ((columnas3 > 1) && (columnas1 == 1 || columnas1 == 0))
+	 {
+		 return (((columnas3-1) * 22 + columnas3 * 3) + (columnas1 * 7));
+	 }
+	 else if ((columnas3 > 1) && (columnas2 == 1 || columnas2 == 0))
+	 {
+		 return (((columnas3-1) * 22 + columnas3 * 3) + (columnas2 * 12));
+	 }
+	 else if ((columnas1 == 1 || columnas1 == 0) && (columnas2 == 1 || columnas2 == 0))
+	 {
+		 return (columnas1 * 7) + (columnas2 * 12) + (columnas3 * 3 + columnas3 * 22);
+	 }
+	 else if ((columnas1 == 1 || columnas1 == 0) && (columnas3 == 1 || columnas3 == 0))
+	 {
+		 return ((columnas1 * 7) + (columnas3 * 3 + columnas2 * 12) + (columnas3 * 22));
+	 }
+	 else if ((columnas2 == 1 || columnas2 == 0) && (columnas3 == 1 || columnas3 == 0))
+	 {
+		 return ((columnas1 * 3 + columnas1 * 7) + (columnas2 * 12) + (columnas3 * 22));
+	 }
+	 ///-----------------------------------------
+	 else if ((columnas1 == 1 || columnas1 == 0))
+	 {
+		 return (columnas1 * 7);
+	 }
+	 else if ((columnas2 == 1 || columnas2 == 0))
+	 {
+		 return (columnas2 * 12);
+	 }
+	 else if ((columnas3 == 1 || columnas3 == 0))
+	 {
+		 return (columnas3 * 22);
+	 }
+	 else
+	 {
+	 return (((columnas1-1) * 3 + columnas1 * 7) + ((columnas2-1) * 3 + columnas2 * 12) + ((columnas3-1) * 3 + columnas3 * 22));
+	 }	
+ }
+
  void puntoCompuesto::movimientoAbajo(int i, int j, jugador* jugadorAct)
  {
 	if (j == 0)
@@ -330,9 +414,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if ((m[i-1][j + 1])->checkIzq())
 				 {
-					 (m[i - 1][j])->setConquista(true);
-					 (m[i][j])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if ((m[i - 1][j])->getConquista() == false)
+					 {
+						 (m[i - 1][j])->setConquista(true);
+						 (m[i][j])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }					
 				 }
 			 }
 		 }
@@ -345,9 +432,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			{
 				if ((m[i - 1][j - 1])->checkDerecha())
 				{
-					(m[i-1][j-1])->setConquista(true);
-					(m[i][j])->setJugador(jugadorAct);
-					jugadorAct->aumentarPuntos(1);
+					if ((m[i - 1][j - 1])->getConquista() == false)
+					{
+						(m[i - 1][j - 1])->setConquista(true);
+						(m[i][j])->setJugador(jugadorAct);
+						jugadorAct->aumentarPuntos(1);
+					}					
 				}
 			}
 		}
@@ -360,8 +450,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			{
 				if ((m[i - 1][j - 1])->checkDerecha())
 				{
-					(m[i - 1][j - 1])->setConquista(true);
-					jugadorAct->aumentarPuntos(1);
+					if ((m[i - 1][j - 1])->getConquista() == false)
+					{
+						(m[i - 1][j - 1])->setConquista(true);
+						(m[i - 1][j - 1])->setJugador(jugadorAct);
+						jugadorAct->aumentarPuntos(1);
+					}				
 				}
 			}
 		}
@@ -371,9 +465,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				{
 				if ((m[i - 1][j + 1])->checkIzq())
 				{
-					(m[i - 1][j])->setConquista(true);
-					(m[i][j])->setJugador(jugadorAct);
-					jugadorAct->aumentarPuntos(1);
+					if ((m[i - 1][j])->getConquista() == false)
+					{
+						(m[i - 1][j])->setConquista(true);
+						(m[i - 1][j])->setJugador(jugadorAct);
+						jugadorAct->aumentarPuntos(1);
+					}
 				}
 				}
 			}
@@ -391,9 +488,13 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if ((m[i + 1][j + 1])->checkIzq())
 				 {
-					 (m[i][j])->setConquista(true);
-					 (m[i][j])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if ((m[i][j])->getConquista() == false)
+					 {
+						 (m[i][j])->setConquista(true);
+						 (m[i][j])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }
+					
 				 }
 			 }
 		 }
@@ -406,9 +507,13 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if ((m[i + 1][j - 1])->checkDerecha())
 				 {
-					 (m[i][j])->setConquista(true);
-					 (m[i][j])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if ((m[i][j])->getConquista() == false)
+					 {
+						 (m[i][j])->setConquista(true);
+						 (m[i][j])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }
+					 
 				 }
 			 }
 		 }
@@ -421,25 +526,31 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if ((m[i + 1][j + 1])->checkIzq())
 				 {
-					 (m[i][j])->setConquista(true);
-					 (m[i][j])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);					 
+					 if ((m[i][j])->getConquista() == false)
+					 {
+						 (m[i][j])->setConquista(true);
+						 (m[i][j])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }
+								 
 				 }			
 			 }		
 		 }
 		 if (m[i][j]->checkIzq())
 		 {
 			if ((m[i][j - 1])->checkAbajo())
-				{
+			{
 				 if ((m[i + 1][j - 1])->checkDerecha())
 				 {
-						 (m[i][j-1])->setConquista(true);
-						 (m[i][j-1])->setJugador(jugadorAct);
-						 jugadorAct->aumentarPuntos(1);				 
+					 if ((m[i][j - 1])->getConquista() == false)
+					 {
+						 (m[i][j - 1])->setConquista(true);
+						 (m[i][j - 1])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }						 		 
 				 }
 					 
-				}
-				
+			}	
 		}
 	 }
  }
@@ -452,9 +563,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if (m[i - 1][j - 1]->checkAbajo())
 				 {
-					 m[i - 1][j - 1]->setConquista(true);
-					 m[i - 1][j - 1]->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if (m[i - 1][j - 1]->getConquista() == false)
+					 {
+						 m[i - 1][j - 1]->setConquista(true);
+						 m[i - 1][j - 1]->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }					
 				 }
 			 }
 		 }
@@ -464,9 +578,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if (m[i + 1][j - 1]->checkArriba())
 				 {
-					 m[i][j-1]->setConquista(true);
-					 (m[i][j-1])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if (m[i][j - 1]->getConquista() == false)
+					 {
+						 m[i][j - 1]->setConquista(true);
+						 (m[i][j - 1])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }				
 				 }
 			 }
 		 }
@@ -481,9 +598,13 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if (m[i + 1][j + 1]->checkArriba())
 				 {
-					 m[i][j]->setConquista(true);
-					 (m[i][j])->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if (m[i][j]->getConquista() == false)
+					 {
+						 m[i][j]->setConquista(true);
+						 (m[i][j])->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }
+					
 				 }
 			 }
 		 }
@@ -494,9 +615,12 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 if (m[i - 1][j + 1]->checkAbajo())
 				 {
-					 m[i - 1][j]->setConquista(true);
-					 m[i - 1][j]->setJugador(jugadorAct);
-					 jugadorAct->aumentarPuntos(1);
+					 if (m[i - 1][j]->getConquista() == false)
+					 {
+						 m[i - 1][j]->setConquista(true);
+						 m[i - 1][j]->setJugador(jugadorAct);
+						 jugadorAct->aumentarPuntos(1);
+					 }			 
 				 }
 			 }
 		 }
@@ -509,10 +633,9 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 		 if (m[i][0] == nullptr)
 		 {
 			 this->filasM = i;
+			 break;
 		 }
 	 }
  }
-
-
 
  

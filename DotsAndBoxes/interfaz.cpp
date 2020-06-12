@@ -198,7 +198,7 @@ void interfaz::cargarPartida()
 		this->campoJuegoC->setJugador1(jugadorN1);
 		this->campoJuegoC->setJugador2(jugadorN2);
 		this->campoJuegoC->setColumnas(columna1, columna2, columna3);
-		analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str());
+		analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str(), jugadorN1, jugadorN2);
 		//--------------------------------------------------------------------
 		this->campoJuegoC->setFilasM();
 		mostrarCampo(mayor, this->campoJuegoC);
@@ -222,6 +222,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 	int filas3 = 9;
 	//--------------------------------------
 	puntoCompuesto* campoJuego = new puntoCompuesto(9, 14);
+	campoJuego->setColumnas(tresXdos,tresXtres,tresXcinco);
 	//////////////////////////////////////////////////////////////////////
 	if (tresXdos == 0)
 	{
@@ -383,23 +384,29 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 
 void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoCompuesto* campoJ)
 {
-	int turnos = 4;
-	int turnoActual = 0;
+	int turnos = 0;
 	excepcionEspecifica excep;
 	try
 	{
-		while (turnos != 0)
+		int maxPlays = campoJ->jugadasMaximas();
+
+		while (maxPlays != turnos)
 		{
 			//------------TURNO JUGADOR 1---------------
 			turnoJugador(p1, columnasMax, campoJ);
 			limpiaPantalla();
 			mostrarCampo(columnasMax, campoJ);
+			turnos++;
+			if (campoJ->jugadasMaximas() == turnos)
+			{
+				break;
+			}
 			//-----------TURNO JUGADOR 2----------------
 			turnoJugador(p2, columnasMax, campoJ);
 			limpiaPantalla();
 			mostrarCampo(columnasMax, campoJ);
+			turnos++;
 			//------------------------------------------
-			turnos--;
 		}
 		//---------------------------------------
 		campoJ->guardarNombre("PartidasJugadas.txt");

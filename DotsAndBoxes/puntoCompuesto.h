@@ -32,6 +32,7 @@ public:
 	jugador* getJugador1();
 	jugador* getJugador2();
 	string getNombre();
+	int jugadasMaximas();
 //-----------------------------
 	void movimientoAbajo(int,int, jugador*);
 	void movimientoArriba(int, int, jugador*);

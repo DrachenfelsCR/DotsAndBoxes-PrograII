@@ -1,9 +1,1 @@
-Faker	Dopa	6	3	2	1	Faker vs Dopa
-Loria	Hitler	10	5	2	1	Loria vs Hitler
-David	Jose	10	3	1	2	David vs Jose
-David	Jose	6	3	2	1	David vs Jose
-		6	3	2	1	 vs 
-David	JASA	6	3	2	1	David vs JASA
-DAVID	PC	6	3	2	1	DAVID vs PC
-DAVID	JOSE	6	3	2	1	DAVID vs JOSE
-PEPE	LALO	6	0	2	1	PEPE vs LALO
+DAVID	JOSE	2	1	0	0	DAVID vs JOSE

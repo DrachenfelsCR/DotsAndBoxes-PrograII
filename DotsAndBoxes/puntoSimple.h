@@ -10,7 +10,6 @@ public:
 	int x;
 	int y;
 	bool cuadrado;
-	bool conquistado;
 	bool conquista;
 	bool arriba; 
 	bool abajo;
@@ -21,6 +20,7 @@ public:
 	string toString();
 	string toStringDown();
 	bool getConquistado();
+	bool getConquista();
 	int getCodigo();
 	jugador* getJugador();
 	bool checkArriba();

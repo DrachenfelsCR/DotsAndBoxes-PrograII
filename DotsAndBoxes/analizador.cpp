@@ -8,10 +8,12 @@ analizador::~analizador()
 {
 }
 
-void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
+void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo, jugador* jugadorN1, jugador* jugadorN2)
 {
 	ifstream input;
 	string nombre;
+	string jugadorA;
+	string numJugadorStr;
 	string i;
 	string j;
 	string izquierda;
@@ -26,11 +28,14 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
 	//-------------------------
 	int iReal;
 	int jReal;
+	int numJugador;
 	input.open(archivo.c_str());
 	while (input.good())
 	{
 		getline(input, i, '\t');
 		getline(input, j, '\t');
+		getline(input, jugadorA, '\t');
+		getline(input, numJugadorStr, '\t');
 		getline(input, izquierda, '\t');
 		getline(input, arriba, '\t');
 		getline(input, derecha, '\t');
@@ -51,6 +56,7 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
 		}
 		iReal = convertirInt(i);
 		jReal = convertirInt(j);
+		numJugador = convertirInt(numJugadorStr);
 		if (!input.eof())
 		{
 			if (izquierda == "vacio")
@@ -63,6 +69,17 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo)
 					(matriz->getArreglo())[iReal][jReal]->setArriba(arribaReal);
 					(matriz->getArreglo())[iReal][jReal]->setDerecha(derechaReal);
 					(matriz->getArreglo())[iReal][jReal]->setAbajo(abajoReal);
+					if (numJugador != 0)
+					{
+						if (jugadorA == jugadorN1->getNombre())
+						{
+							(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN1);
+						}
+						else if (jugadorA == jugadorN2->getNombre())
+						{
+							(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN2);
+						}		
+					}
 			}
 			
 		}

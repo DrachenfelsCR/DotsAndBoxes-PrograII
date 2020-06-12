@@ -19,7 +19,7 @@ public:
 	int getNumero();
 	int getPuntos();
 //-----------
-private:
+protected:
 	string nombre;
 	int numero;
 	int puntos;

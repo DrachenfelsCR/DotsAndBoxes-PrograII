@@ -48,9 +48,6 @@
     <ClInclude Include="analizador.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Maquinola.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,9 +72,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="analizador.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Maquina.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

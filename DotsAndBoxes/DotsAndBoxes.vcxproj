@@ -145,7 +145,6 @@
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorArreglo.h" />
     <ClInclude Include="jugador.h" />
-    <ClInclude Include="Maquinola.h" />
     <ClInclude Include="puntoBase.h" />
     <ClInclude Include="puntoCompuesto.h" />
     <ClInclude Include="puntoSimple.h" />
@@ -156,7 +155,6 @@
     <ClCompile Include="interfaz.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="puntoBase.cpp" />
     <ClCompile Include="puntoCompuesto.cpp" />
     <ClCompile Include="puntoSimple.cpp" />

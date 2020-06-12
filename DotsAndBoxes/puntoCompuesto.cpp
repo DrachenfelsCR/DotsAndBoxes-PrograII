@@ -273,6 +273,8 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 this->jugador2 = p2;
  }
 
+
+
  void puntoCompuesto::setMayor(int mayor)
  {
 	 this->mayor = mayor;
@@ -304,6 +306,8 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
  {
 	 return this->mayor;
  }
+
+
 
  jugador* puntoCompuesto::getJugador1()
  {

@@ -2,6 +2,7 @@
 #include "puntoBase.h"
 #include "arreglo.h"
 #include "puntoSimple.h"
+#include "Maquinola.h"
 #include <fstream>
 class puntoCompuesto : public puntoBase
 {

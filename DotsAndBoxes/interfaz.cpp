@@ -509,7 +509,7 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 			fila = rangoCeroAN(9);
 			imprimirCadena("Punto de origen, columna: ");
 			columna = rangoCeroAN(columnasMax);
-		 puntoOrigen = campoJ->buscar(fila, columna);
+			puntoOrigen = campoJ->buscar(fila, columna);
 			//------------VERIFICA QUE EL PUNTO DE ORIGEN NO SEA NULO
 			while (puntoOrigen == nullptr)
 			{
@@ -546,6 +546,8 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				int columna2 = rangoCeroAN(columnasMax);
 			}
 			puntoDestino = campoJ->buscar(fila2, columna2);
+			campoJ->setUltimafil(fila2);
+			campoJ->setUltimaCol(columna2);
 			//---------------------------------------------
 			if (fila2 > fila)
 			{

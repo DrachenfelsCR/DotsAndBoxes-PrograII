@@ -1,5 +1,5 @@
 #include "juegoCentral.h"
 
-void juegoCentral::jugar(puntoCompuesto*)
+void juegoCentral::jugar(puntoCompuesto*,Maquina*)
 {
 }

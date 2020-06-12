@@ -312,6 +312,16 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 return this->columnas3;
  }
 
+ int puntoCompuesto::getUltimaFil()
+ {
+	 return UltimaFil;
+ }
+
+ int puntoCompuesto::getUltimaCol()
+ {
+	 return UltimaCol;
+ }
+
  int puntoCompuesto::getMayor()
  {
 	 return this->mayor;
@@ -640,6 +650,16 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 break;
 		 }
 	 }
+ }
+
+ void puntoCompuesto::setUltimafil(int ultimaFil)
+ {
+	 this->UltimaFil = ultimaFil;
+ }
+
+ void puntoCompuesto::setUltimaCol(int ultimaCol)
+ {
+	 this->UltimaCol = ultimaCol;
  }
 
  

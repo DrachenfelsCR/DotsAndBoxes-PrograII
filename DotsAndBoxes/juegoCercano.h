@@ -4,7 +4,7 @@
 class Cercano : public Estrategia {
 
 public:
-	virtual void jugar(puntoCompuesto*);
+	virtual void jugar(puntoCompuesto*, Maquina*);
 
 
 

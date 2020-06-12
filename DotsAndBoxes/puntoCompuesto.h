@@ -28,6 +28,8 @@ public:
 	int getcolumna1();
 	int getcolumna2();
 	int getcolumna3();
+	int getUltimaFil();
+	int getUltimaCol();
 	int getMayor();
 	jugador* getJugador1();
 	jugador* getJugador2();
@@ -39,6 +41,8 @@ public:
 	void movimientoDerecha(int, int, jugador*);
 	void movimientoIzquierda(int, int, jugador*);
 	void setFilasM();
+	void setUltimafil(int);
+	void setUltimaCol(int);
 protected:
 	string nombre;
 	jugador* jugador1;
@@ -51,6 +55,8 @@ protected:
 	int columnas1;
 	int columnas2;
 	int columnas3;
+	int UltimaFil;
+	int UltimaCol;
 };
 
 

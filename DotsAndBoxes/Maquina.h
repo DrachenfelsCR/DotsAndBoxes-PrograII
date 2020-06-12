@@ -1,6 +1,7 @@
 #pragma once
 #include "jugador.h"
 #include "Estrategia.h"
+class Estrategia;
 class Maquina : public jugador {
 
 private:

@@ -13,7 +13,7 @@ Maquina::~Maquina()
 
 Estrategia* Maquina::getStrategy()
 {
-	return nullptr;
+	return this->strategy;
 }
 
 void Maquina::setStrategy(Estrategia* strategy)

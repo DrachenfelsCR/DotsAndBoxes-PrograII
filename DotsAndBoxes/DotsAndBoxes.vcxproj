@@ -140,11 +140,18 @@
   <ItemGroup>
     <ClInclude Include="analizador.h" />
     <ClInclude Include="arreglo.h" />
+    <ClInclude Include="estrategia.h" />
     <ClInclude Include="excepciones.h" />
     <ClInclude Include="interfaz.h" />
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorArreglo.h" />
+    <ClInclude Include="juegoAleatorio.h" />
+    <ClInclude Include="juegoCentral.h" />
+    <ClInclude Include="juegoCercano.h" />
+    <ClInclude Include="juegoIslas.h" />
+    <ClInclude Include="juegoPeriferico.h" />
     <ClInclude Include="jugador.h" />
+    <ClInclude Include="Maquina.h" />
     <ClInclude Include="puntoBase.h" />
     <ClInclude Include="puntoCompuesto.h" />
     <ClInclude Include="puntoSimple.h" />
@@ -153,8 +160,14 @@
   <ItemGroup>
     <ClCompile Include="analizador.cpp" />
     <ClCompile Include="interfaz.cpp" />
+    <ClCompile Include="juegoAleatorio.cpp" />
+    <ClCompile Include="juegoCentral.cpp" />
+    <ClCompile Include="juegoCercano.cpp" />
+    <ClCompile Include="juegoIslas.cpp" />
+    <ClCompile Include="juegoPeriferico.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="puntoBase.cpp" />
     <ClCompile Include="puntoCompuesto.cpp" />
     <ClCompile Include="puntoSimple.cpp" />

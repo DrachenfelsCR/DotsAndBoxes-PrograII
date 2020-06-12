@@ -1,6 +1,8 @@
 #pragma once
 #include "utiles.h"
 #include "puntoCompuesto.h"
+#include "Maquina.h"
+#include "incluirEstrategias.h"
 
 #include "analizador.h"
 class interfaz {
@@ -14,7 +16,7 @@ public:
 	void cargarPartida();
 	puntoCompuesto* crearCampoDeJuego(int,int,int);
 	void turnoDeJuego(jugador*, jugador*, int, puntoCompuesto*);
-	void turnoDeJuegovsMaquina(jugador*, jugador*,int,puntoCompuesto*);
+	void turnoDeJuegovsMaquina(jugador*, Maquina*,int,puntoCompuesto*);
 	void turnoJugador(jugador*, int, puntoCompuesto*);
 	void mostrarCampo(int, puntoCompuesto*);
 private:

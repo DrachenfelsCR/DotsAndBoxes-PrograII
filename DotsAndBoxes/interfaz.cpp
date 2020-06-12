@@ -139,7 +139,7 @@ void interfaz::jugadorVrsMaquina()
 {
 	limpiaPantalla();
 	string nombre1;
-	string nombre2="Maquina";
+	string nombre2 = "Maquina";
 	stringstream NombrePartida;
 	int id1 = 1;
 	int id2 = 2;
@@ -160,7 +160,7 @@ void interfaz::jugadorVrsMaquina()
 		
 		cout << "Identificador de la Maquina :" << id2;
 		imprimirCadena("\n");
-		jugador* player2 = new jugador(nombre2,id2);
+		Maquina* player2 = new Maquina(nombre2,id2);
 		//---------------------------------------
 		NombrePartida << nombre1 << " vs " << nombre2;
 		//---------------------------------------
@@ -191,6 +191,36 @@ void interfaz::jugadorVrsMaquina()
 		imprimirCadena("Perfecto!!! \n");
 		imprimirCadena("< digite enter >");
 		cin.get();
+		imprimirCadena("Digite la estrategia deseada para la maquina: ");
+		imprimirCadena("1)Juego aleatorio");
+		imprimirCadena("2)Juega  cercano");
+		imprimirCadena("3)Juego periférico");
+		imprimirCadena("4)Juego central");
+		imprimirCadena("5)Juego islas");
+		opc = leerSeleccion(5);
+		Estrategia* estAleatorio = new juegoAletorio();
+		Estrategia* estCentral= new juegoCentral();
+		Estrategia* estCercano = new juegoCercano();
+		Estrategia* estIslas = new juegoIslas();
+		Estrategia* estPeriferico = new juegoPeriferico();
+		switch (opc)
+		{
+		case 1:
+			player2->setStrategy(estAleatorio);
+			break;
+		case 2:
+			player2->setStrategy(estCercano);
+			break;
+		case 3:
+			player2->setStrategy(estPeriferico);
+			break;
+		case 4:
+			player2->setStrategy(estCentral);
+			break;
+		case 5:
+			player2->setStrategy(estIslas);
+			break;
+		}
 		limpiaPantalla();
 		//---------------------------------------
 		this->campoJuegoC = crearCampoDeJuego(tresXdos, tresXtres, tresXcinco);
@@ -203,7 +233,7 @@ void interfaz::jugadorVrsMaquina()
 		this->campoJuegoC->setJugador2(player2);
 		mostrarCampo(mayor, this->campoJuegoC);
 		//------EMPIEZA TURNO-------------
-		turnoDeJuego(player1, player2, mayor, this->campoJuegoC);
+		turnoDeJuegovsMaquina(player1, player2, mayor, this->campoJuegoC);
 	}
 	catch (excepcionEspecifica)
 	{
@@ -476,7 +506,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			{
 				break;
 			}
-			//-----------TURNO JUGADOR 2----------------
+			//-----------TURNO JUGADOR----------------
 			turnoJugador(p2, columnasMax, campoJ);
 			limpiaPantalla();
 			mostrarCampo(columnasMax, campoJ);
@@ -494,8 +524,41 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 	}
 	
 }
-void interfaz::turnoDeJuegovsMaquina(jugador* p, jugador* m,int columnasMax,puntoCompuesto* campoJ)
+void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,puntoCompuesto* campoJ)
 {
+	int turnos = 0;
+	excepcionEspecifica excep;
+	try
+	{
+		int maxPlays = campoJ->jugadasMaximas();
+
+		while (maxPlays != turnos)
+		{
+			//------------TURNO JUGADOR 1---------------
+			turnoJugador(p, columnasMax, campoJ);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
+			turnos++;
+			if (campoJ->jugadasMaximas() == turnos)
+			{
+				break;
+			}
+			//-----------TURNO MAQUINA----------------
+			m->getStrategy()->jugar(campoJ,m);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
+			turnos++;
+			//------------------------------------------
+		}
+		//---------------------------------------
+		campoJ->guardarNombre("PartidasJugadas.txt");
+		stringstream r;
+		r << "archivos/" << campoJ->getNombre() << ".txt";
+		campoJ->guardar(r.str());
+	}
+	catch (...)
+	{
+	}
 }
 void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ)
 {

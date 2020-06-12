@@ -2,8 +2,9 @@
 
 
 
-Maquina::Maquina()
+Maquina::Maquina(string nombre,int numero):jugador(nombre,numero)
 {
+	strategy = nullptr;
 }
 
 Maquina::~Maquina()

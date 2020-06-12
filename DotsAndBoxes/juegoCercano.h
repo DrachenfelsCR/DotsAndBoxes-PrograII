@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Estrategia.h"
-class Cercano : public Estrategia {
+class juegoCercano : public Estrategia {
 
 public:
 	virtual void jugar(puntoCompuesto*, Maquina*);

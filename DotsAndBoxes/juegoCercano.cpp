@@ -1,6 +1,6 @@
 #include "juegoCercano.h"
 
-void Cercano::jugar(puntoCompuesto*,Maquina*)
+void juegoCercano::jugar(puntoCompuesto*,Maquina*)
 {
 	
 }

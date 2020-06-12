@@ -9,7 +9,7 @@ private:
 
 
 public:
-	Maquina();
+	Maquina(string,int);
 	~Maquina();
 	Estrategia* getStrategy();
 	void setStrategy(Estrategia*);

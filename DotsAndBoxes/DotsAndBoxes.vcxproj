@@ -142,6 +142,7 @@
     <ClInclude Include="arreglo.h" />
     <ClInclude Include="estrategia.h" />
     <ClInclude Include="excepciones.h" />
+    <ClInclude Include="incluirEstrategias.h" />
     <ClInclude Include="interfaz.h" />
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorArreglo.h" />

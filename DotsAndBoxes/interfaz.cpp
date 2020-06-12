@@ -541,9 +541,9 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 			{
 				imprimirCadena("Este punto no esta disponible, utilice solo puntos adyacentes entre si");
 				imprimirCadena("Punto de destino, fila: ");
-				int fila2 = rangoCeroAN(9);
+				fila2 = rangoCeroAN(9);
 				imprimirCadena("Punto de destino, columna: ");
-				int columna2 = rangoCeroAN(columnasMax);
+				columna2 = rangoCeroAN(columnasMax);
 			}
 			puntoDestino = campoJ->buscar(fila2, columna2);
 			campoJ->setUltimafil(fila2);

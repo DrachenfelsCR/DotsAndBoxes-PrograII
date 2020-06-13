@@ -327,6 +327,11 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 return this->mayor;
  }
 
+ int puntoCompuesto::getFilasM()
+ {
+	 return this->filasM;
+ }
+
 
 
  jugador* puntoCompuesto::getJugador1()

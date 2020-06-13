@@ -31,6 +31,7 @@ public:
 	int getUltimaFil();
 	int getUltimaCol();
 	int getMayor();
+	int getFilasM();
 	jugador* getJugador1();
 	jugador* getJugador2();
 	string getNombre();

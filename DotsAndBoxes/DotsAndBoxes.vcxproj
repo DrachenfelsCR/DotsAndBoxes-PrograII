@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="analizador.cpp" />
+    <ClCompile Include="estrategia.cpp" />
     <ClCompile Include="interfaz.cpp" />
     <ClCompile Include="juegoAleatorio.cpp" />
     <ClCompile Include="juegoCentral.cpp" />

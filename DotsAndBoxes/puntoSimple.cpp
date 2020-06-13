@@ -2,6 +2,7 @@
 
 puntoSimple::puntoSimple()
 {
+	this->conquistado = false;
 	this->conquista = false;
 	arriba = false;
 	abajo = false;
@@ -15,6 +16,11 @@ puntoSimple::puntoSimple()
 
 puntoSimple::~puntoSimple()
 {
+}
+
+void puntoSimple::setConquistado(bool estado)
+{
+	this->conquistado = estado;
 }
 
 void puntoSimple::setCodigo(int)
@@ -140,7 +146,7 @@ string puntoSimple::toString()
 
 bool puntoSimple::getConquistado()
 {
-	return false;
+	return this->conquistado;
 }
 
 bool puntoSimple::getConquista()

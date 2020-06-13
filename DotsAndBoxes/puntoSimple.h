@@ -15,6 +15,7 @@ public:
 	bool abajo;
 	bool izquierda;
 	bool derecha;
+	bool conquistado;
 
 //------GET------------
 	string toString();

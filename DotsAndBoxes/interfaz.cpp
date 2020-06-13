@@ -139,7 +139,7 @@ void interfaz::jugadorVrsMaquina()
 {
 	limpiaPantalla();
 	string nombre1;
-	string nombre2 = "Maquina";
+	string nombre2 = "Maqui";
 	stringstream NombrePartida;
 	int id1 = 1;
 	int id2 = 2;
@@ -231,6 +231,7 @@ void interfaz::jugadorVrsMaquina()
 		this->campoJuegoC->setMayor(mayor);
 		this->campoJuegoC->setJugador1(player1);
 		this->campoJuegoC->setJugador2(player2);
+
 		mostrarCampo(mayor, this->campoJuegoC);
 		//------EMPIEZA TURNO-------------
 		turnoDeJuegovsMaquina(player1, player2, mayor, this->campoJuegoC);
@@ -483,6 +484,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 		
 
 	}
+
 	campoJuego->setFilasM();
 	return campoJuego;
 }
@@ -603,7 +605,7 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				{
 					puntoOrigen = nullptr;
 				}
-			}
+			}	
 			//-----FIN DE VERIFICACION DEL PUNTO DE ORIGEN NULO
 			imprimirCadena("Punto de destino, fila: ");
 			int fila2 = rangoCeroAN(9);
@@ -838,7 +840,7 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 		}
 	}
 	//verifica si esta en el borde derecho filas 0 a 3
-	else if ((punto->getY() >= 0 || punto->getY() <= 3) && (punto->getX() == columna1))
+	else if ((punto->getY() >= 0 && punto->getY() < 3) && (punto->getX() == columna1))
 	{
 		if (punto->checkIzq() == true && punto->checkArriba() == true && punto->checkAbajo() == true)
 		{
@@ -846,7 +848,7 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 		}
 	}
 	// verifica si esta en el borde derecho filas 3 a 6
-	else if ((punto->getY() >= 3 || punto->getY() <= 6) && (punto->getX() == columna2))
+	else if ((punto->getY() >= 3 && punto->getY() < 6) && (punto->getX() == columna2))
 	{
 		if (columna1 < columna2)
 		{
@@ -861,9 +863,16 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 		}
 	}
 	// verifica si esta en el borde derecho filas 6 a 9 menos la 9
-	else if ((punto->getY() >= 6 || punto->getY() < 9) && (punto->getX() == column3))
+	else if ((punto->getY() >= 6 && punto->getY() < 9) && (punto->getX() == column3))
 	{
-		if (punto->checkIzq() == true && punto->checkArriba() == true && punto->checkAbajo() == true)
+		if (columna2 < column3 && punto->getY() == 6)
+		{
+			if (punto->checkIzq() == true && punto->checkAbajo() == true)
+			{
+				punto->setConquistado(true);
+			}
+		}
+		else if (punto->checkIzq() == true && punto->checkArriba() == true && punto->checkAbajo() == true)
 		{
 			punto->setConquistado(true);
 		}

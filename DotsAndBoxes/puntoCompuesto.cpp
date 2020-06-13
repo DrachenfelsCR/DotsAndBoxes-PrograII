@@ -660,6 +660,11 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 this->filasM = i;
 			 break;
 		 }
+		 if (i == 7)
+		 {
+			 this->filasM = 8;
+			 break;
+		 }
 	 }
  }
 

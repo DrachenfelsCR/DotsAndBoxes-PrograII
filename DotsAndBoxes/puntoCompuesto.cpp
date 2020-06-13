@@ -16,8 +16,8 @@ puntoCompuesto::puntoCompuesto(int filas, int columnas)
 		for (int j = 0; j < columnas; j++)
 		{
 			m[i][j] = new puntoSimple;
-			m[i][j]->setX(i);
-			m[i][j]->setY(j);
+			m[i][j]->setX(j);
+			m[i][j]->setY(i);
 		}
 	}
 }
@@ -169,11 +169,9 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	return false;
 }
 
-
-
- puntoSimple* puntoCompuesto::buscar(int x, int y)
+ puntoSimple* puntoCompuesto::buscar(int y, int x)
 {
-	return m[x][y];
+	return m[y][x];
 }
 
  puntoSimple*** puntoCompuesto::getArreglo()
@@ -353,6 +351,14 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
  {
 	 if ( (columnas1 == 1 || columnas1 == 0) && (columnas2 == 1 || columnas2 == 0) && (columnas3 == 1 || columnas3 == 0))
 	 {
+		if (columnas1 == 1 && columnas2 == 1 && columnas3 == 1)
+		{
+		 return ((columnas1 * 7) + (columnas2 * 12 + 2) + (columnas3 * 22 + 3));
+		}
+		else if(columnas1 == 1 && columnas2 == 1)
+		{
+			return ((columnas1 * 7) + (columnas2 * 12 + 2) + (columnas3 * 22));
+		}		 
 		 return ((columnas1 * 7) + (columnas2 * 12) + (columnas3 * 22));
 	 }
 	 //---------------------------------------------------------

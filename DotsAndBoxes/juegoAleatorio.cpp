@@ -20,7 +20,7 @@ void juegoAletorio::jugar(puntoCompuesto* c, Maquina* m)
     while (puntoOrigen == nullptr)
     {
         aleatorizador = rand() % 4 + 1;
-        i = rand() % c->getMayor();
+        i = rand() % c->getFilasM();
         j = rand() % colsMayor;
         puntoOrigen = c->buscar(i, j);
         fila = i;
@@ -146,7 +146,7 @@ void juegoAletorio::jugar(puntoCompuesto* c, Maquina* m)
                default:
                    break;
                }
-               if (iDestino == 666)
+               if (iDestino == 666 || yDestino == 666)
                {
                    puntoDestino = nullptr;
                }

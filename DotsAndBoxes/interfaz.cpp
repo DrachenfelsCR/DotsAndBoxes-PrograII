@@ -555,6 +555,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			mostrarCampo(columnasMax, campoJ);
 			turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
+			campoJ->setTurnos(turnos);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -569,6 +570,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
+				campoJ->setTurnos(turnos);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -588,6 +590,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			mostrarCampo(columnasMax, campoJ);
 			turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
+			campoJ->setTurnos(turnos);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -602,6 +605,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
+				campoJ->setTurnos(turnos);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -642,6 +646,7 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			mostrarCampo(columnasMax, campoJ);
 			turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
+			campoJ->setTurnos(turnos);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -656,6 +661,7 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
+				campoJ->setTurnos(turnos);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -665,21 +671,33 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 					turnos = maxPlays;
 					break;
 				}
-
 			}
 			if (turnos == maxPlays)
 			{
 				break;
 			}
 			//-----------TURNO MAQUINA----------------
-			m->getStrategy()->jugar(campoJ,m);
-			puntoSimple* pOrigen = m->getStrategy()->getPuntoOrigen();
-			puntoSimple* pDestino = m->getStrategy()->getPuntoDestino();
+			puntoSimple* pOrigen = nullptr;
+			puntoSimple* pDestino = nullptr;
+			m->getStrategy()->jugar(campoJ,m, ptrPuntoGanado);
+			pOrigen = m->getStrategy()->getPuntoOrigen();
+			pDestino = m->getStrategy()->getPuntoDestino();
 			verificaPunto(pOrigen, campoJ->getFilasM(), campoJ->getcolumna1() * 2 , campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);
 			verificaPunto(pDestino, campoJ->getFilasM(), campoJ->getcolumna1() * 2, campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);
 			limpiaPantalla();
-			mostrarCampo(columnasMax, campoJ);
 			turnos++;
+			campoJ->setTurnos(turnos);
+			while (puntoGanado == true)
+			{
+				m->getStrategy()->jugar(campoJ, m, ptrPuntoGanado);
+				pOrigen = m->getStrategy()->getPuntoOrigen();
+				pDestino = m->getStrategy()->getPuntoDestino();
+				verificaPunto(pOrigen, campoJ->getFilasM(), campoJ->getcolumna1() * 2, campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);
+				verificaPunto(pDestino, campoJ->getFilasM(), campoJ->getcolumna1() * 2, campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);
+				limpiaPantalla();
+				turnos++;
+				campoJ->setTurnos(turnos);
+			}
 			//------------------------------------------
 		}
 		//---------------------------------------

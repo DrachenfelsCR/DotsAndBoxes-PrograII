@@ -10,8 +10,9 @@ puntoSimple* Estrategia::getPuntoDestino()
 	return this->puntoDestino;
 }
 
-bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m)
+bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m, bool* ptrPuntoGanado)
 {
+    int puntosActuales = m->getPuntos();
     puntoSimple* esquinaSupIzq = nullptr;
     puntoSimple* esquinaSupDerecha = nullptr;
     puntoSimple* esquinaInfIzq = nullptr;
@@ -46,6 +47,14 @@ bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m)
                                 p->movimientoIzquierda(i+1,j, m);
                                 m->getStrategy()->setPuntoOrigen(esquinaInfDerecha);
                                 m->getStrategy()->setPuntoDestino(esquinaInfIzq);
+                                if (puntosActuales < m->getPuntos())
+                                {
+                                    *ptrPuntoGanado = true;
+                                }
+                                else
+                                {
+                                    *ptrPuntoGanado = false;
+                                }
                                 return true;
                             }
                         }
@@ -62,6 +71,14 @@ bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m)
                                 m->getStrategy()->setPuntoOrigen(esquinaSupDerecha);
                                 m->getStrategy()->setPuntoDestino(esquinaInfDerecha);
                                 p->movimientoAbajo(i+1, j+1, m);
+                                if (puntosActuales < m->getPuntos())
+                                {
+                                    *ptrPuntoGanado = true;
+                                }
+                                else
+                                {
+                                    *ptrPuntoGanado = false;
+                                }
                                 return true;
                             }
                         }
@@ -81,6 +98,14 @@ bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m)
                                 m->getStrategy()->setPuntoOrigen(esquinaSupIzq);
                                 m->getStrategy()->setPuntoDestino(esquinaInfIzq);
                                 p->movimientoAbajo(i+1, j, m);
+                                if (puntosActuales < m->getPuntos())
+                                {
+                                    *ptrPuntoGanado = true;
+                                }
+                                else
+                                {
+                                    *ptrPuntoGanado = false;
+                                }
                                 return true;
                             }
                         }
@@ -97,6 +122,14 @@ bool Estrategia::jugadaInteligente(puntoCompuesto* p, Maquina* m)
                                 m->getStrategy()->setPuntoOrigen(esquinaSupIzq);
                                 m->getStrategy()->setPuntoDestino(esquinaSupDerecha);
                                 p->movimientoDerecha(i,j+1,m);
+                                if (puntosActuales < m->getPuntos())
+                                {
+                                    *ptrPuntoGanado = true;
+                                }
+                                else
+                                {
+                                    *ptrPuntoGanado = false;
+                                }
                                 return true;
                             }
                         }

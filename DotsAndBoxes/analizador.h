@@ -10,7 +10,9 @@ public:
 	analizador();
 	~analizador();
 	void recuperarCampoJuego(puntoCompuesto*, string, jugador*, jugador*);
-	void recuperarNombrePartidas(string, string*, string*, string*, int*, int*, int*, int*, string*, Maquina*);
+	void recuperarCampoJuegoMaquina(puntoCompuesto*, string, jugador*, Maquina*);
+	void recuperarNombrePartidas(string, string*, string*, string*, string*, int*, int*, int*, int*, string*, Maquina*, int*);
+	puntoCompuesto* crearCampoDeJuego(int,int,int);
 private:
 };
 

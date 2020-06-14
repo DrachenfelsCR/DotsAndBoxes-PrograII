@@ -3,6 +3,9 @@
 #include "puntoSimple.h"
 #include <fstream>
 #include "Maquina.h"
+#include "estrategia.h"
+class Estrategia;
+class Maquina;
 
 class puntoCompuesto : public puntoBase
 {

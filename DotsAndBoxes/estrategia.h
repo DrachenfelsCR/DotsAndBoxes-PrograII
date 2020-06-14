@@ -5,6 +5,7 @@
 #include "Maquina.h"
 #include "utiles.h"
 class Maquina;
+class puntoCompuesto;
 
 using namespace std;
 class Estrategia {
@@ -14,7 +15,7 @@ public:
 	void verificaPunto(puntoSimple*, int, int, int, int);
 	puntoSimple* getPuntoOrigen();
 	puntoSimple* getPuntoDestino();
-	bool jugadaInteligente(puntoCompuesto*, Maquina*);
+	bool jugadaInteligente(puntoCompuesto*, Maquina*, bool*);
 	void setPuntoOrigen(puntoSimple*);
 	void setPuntoDestino(puntoSimple*);
 	string getNombre();

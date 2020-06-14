@@ -1,6 +1,8 @@
 #pragma once
 #include "jugador.h"
+#include "puntoCompuesto.h"
 class Estrategia;
+class puntoCompuesto;
 
 class Maquina : public jugador {
 	

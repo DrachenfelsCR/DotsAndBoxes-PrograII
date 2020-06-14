@@ -131,7 +131,7 @@ string puntoSimple::toString()
 	stringstream p;
 	 if (conquista)
 	{
-		p << "| " << this->jugadorActual->getNombre();
+		p << "| " << this->jugadorActual->getNumero();
 	}
 	else if (abajo)
 	{

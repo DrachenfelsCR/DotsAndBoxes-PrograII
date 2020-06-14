@@ -196,6 +196,14 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 			 {
 				 outp << i << '\t';
 				 outp << j << '\t';
+				 if (m[i][j]->getConquista())
+				 {
+					 outp << "true" << '\t';
+				 }
+				 else
+				 {
+					 outp << "false" << '\t';
+				 }
 				 if (m[i][j]->getJugador() != nullptr)
 				 {
 					 outp << m[i][j]->getJugador()->getNombre() << '\t';
@@ -250,6 +258,9 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 outp << "vacio" << '\t';
 				 outp << "vacio" << '\t';
 				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\t';
+				 outp << "vacio" << '\t';
 				 outp << "vacio" << '\n';
 			 }
 		 }
@@ -270,8 +281,9 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 else if (this->laMaquina != nullptr)
 	 {
 		 outp << this->laMaquina->getNombre() << '\t';
-		 outp << this->laMaquina->getStrategy() << '\t';
+		 outp << this->laMaquina->getStrategy()->getNombre() << '\t';
 	 }
+	 outp << this->contadorTurnos << '\t';
 	 outp << this->mayor << '\t';
 	 outp << this->columnas1 << '\t';
 	 outp << this->columnas2 << '\t';
@@ -476,7 +488,6 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 					 {
 						 (m[i - 1][j])->setConquista(true);
 						 (m[i - 1 ][j])->setJugador(jugadorAct);
-						 (m[i][j])->setJugador(jugadorAct);
 						 jugadorAct->aumentarPuntos(1);
 					 }					
 				 }

@@ -14,7 +14,7 @@ void juegoPeriferico::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
     int fila2 = 0;
     int columna2 = 0;
     int colsMayor = mayorDeTresEnteros(2 * c->getcolumna1(), 3 * c->getcolumna2(), 5 * c->getcolumna3());
-    if (jugadaInteligente(c, m))
+    if (jugadaInteligente(c, m, ptrPuntoGanado))
     {
     }
     else

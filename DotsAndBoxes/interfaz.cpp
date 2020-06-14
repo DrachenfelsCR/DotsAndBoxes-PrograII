@@ -138,7 +138,7 @@ void interfaz::jugadorVrsMaquina()
 {
 	limpiaPantalla();
 	string nombre1;
-	string nombre2 = "Maqui";
+	string nombre2 = "Maquina";
 	stringstream NombrePartida;
 	int id1 = 1;
 	int id2 = 2;
@@ -236,7 +236,7 @@ void interfaz::jugadorVrsMaquina()
 		//------------------------------------------
 		this->campoJuegoC->setMayor(mayor);
 		this->campoJuegoC->setJugador1(player1);
-		this->campoJuegoC->setJugador2(player2);
+		this->campoJuegoC->setMaquina(player2);
 
 		//------EMPIEZA TURNO-------------
 		turnoDeJuegovsMaquina(player1, player2, mayor, this->campoJuegoC);
@@ -261,6 +261,8 @@ void interfaz::cargarPartida()
 	string* ptrStrategy = &laEstrategia;
 	Maquina* bot = nullptr;
 	jugador* jugadorN2 = nullptr;
+	int turnos = 0;
+	int* ptrTurnos = &turnos;
 	int mayor;
 	//------
 	int columna1;
@@ -277,13 +279,15 @@ void interfaz::cargarPartida()
 	try
 	{
 		string* nombrePartidas = new string[20];
+		string* estrategias = new string[20];
 		for (int i = 0; i < 20; i++)
 		{
 			nombrePartidas[i] = "";
 		}
 		analizador analiza;
 		int seleccion = 0;
-		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot);
+		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, estrategias, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot, ptrTurnos);
+		this->campoJuegoC = crearCampoDeJuego(columna1, columna2, columna3);
 		for (int i = 0; i < 20; i++)
 		{
 			if (nombrePartidas[i] != "")
@@ -307,37 +311,35 @@ void interfaz::cargarPartida()
 		//-------------------------------------------------------------
 
 		//-------------------------------------------
-		this->campoJuegoC = new puntoCompuesto(9, 14);
 		jugador* jugadorN1 = new jugador(nombreJ1, 1);
 		if (nombreJ2 == "Maquina")
 		{
 			bot = new Maquina(nombreJ2, 2);
-			if (laEstrategia == "Aleatorio")
+			if (estrategias[seleccion - 1] == "Aleatorio")
 			{
 				juegoAletorio* jAleatorio = new juegoAletorio();
 				bot->setStrategy(jAleatorio);
 			}
-			else if (laEstrategia == "Central")
+			else if (estrategias[seleccion - 1] == "Central")
 			{
 				juegoCentral* jCentral = new juegoCentral();
 				bot->setStrategy(jCentral);
 			}
-			else if (laEstrategia == "Cercano")
+			else if (estrategias[seleccion - 1] == "Cercano")
 			{
 				juegoCercano* jCercano = new juegoCercano();
 				bot->setStrategy(jCercano);
 			}
-			else if (laEstrategia == "Islas")
+			else if (estrategias[seleccion - 1] == "Islas")
 			{
 				juegoIslas* jIslas = new juegoIslas();
 				bot->setStrategy(jIslas);
 			}
-			else if (laEstrategia == "Periferico")
+			else if (estrategias[seleccion - 1] == "Periferico")
 			{
 				juegoPeriferico* jPeriferico = new juegoPeriferico();
 				bot->setStrategy(jPeriferico);
 			}
-			this->campoJuegoC->setJugador2(bot);
 		}
 		else
 		{
@@ -348,7 +350,8 @@ void interfaz::cargarPartida()
 		this->campoJuegoC->setColumnas(columna1, columna2, columna3);
 		if (bot != nullptr)
 		{
-			analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str(), jugadorN1, bot);
+			analiza.recuperarCampoJuegoMaquina(this->campoJuegoC, partidaCargar.str(), jugadorN1, bot);
+			this->campoJuegoC->setJugador2(bot);
 		}
 		else
 		{
@@ -356,8 +359,16 @@ void interfaz::cargarPartida()
 		}
 		//--------------------------------------------------------------------
 		this->campoJuegoC->setFilasM();
-		mostrarCampo(mayor, this->campoJuegoC);
-		turnoDeJuego(jugadorN1, jugadorN2, mayor, this->campoJuegoC);
+		this->campoJuegoC->setTurnos(turnos);
+		if (bot == nullptr)
+		{
+			turnoDeJuego(jugadorN1, jugadorN2, mayor, this->campoJuegoC);
+		}
+		else
+		{
+			turnoDeJuegovsMaquina(jugadorN1, bot, mayor, this->campoJuegoC);
+		}
+		
 	}
 	catch (excepcionEspecifica)
 	{
@@ -540,7 +551,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 
 void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoCompuesto* campoJ)
 {
-	int turnos = 0;
+	int turnos = campoJ->getContadorTurnos();
 	excepcionEspecifica excep;
 	bool puntoGanado = false;
 	bool* ptrPuntoGanado = &puntoGanado;
@@ -619,6 +630,27 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			//------------------------------------------
 		}
 		//---------------------------------------
+		if (seleccion != 2 && maxPlays == turnos)
+		{
+			if (p1->getPuntos() > p2->getPuntos())
+			{
+				cout << "Jugador 1, Puntos: " << p1->getPuntos() << endl;
+				cout << "Jugador 2, Puntos: " << p2->getPuntos() << endl;
+				cout << "Ganador de la partida: Jugador " << p1->getNumero() << " ,nombre :" << p1->getNombre() << endl;
+			}
+			else if (p1->getPuntos() == p2->getPuntos())
+			{
+				cout << "Jugador 1, Puntos: " << p1->getPuntos() << endl;
+				cout << "Jugador 2, Puntos: " << p2->getPuntos() << endl;
+				imprimirCadena("Empate!");
+			}
+			else
+			{
+				cout << "Jugador 1, Puntos: " << p1->getPuntos() << endl;
+				cout << "Jugador 2, Puntos: " << p2->getPuntos() << endl;
+				cout << "Ganador de la partida: Jugador " << p2->getNumero() << " ,nombre :" << p2->getNombre() << endl;
+			}
+		}
 		campoJ->guardarNombre("PartidasJugadas.txt");
 		stringstream r;
 		r << "archivos/" << campoJ->getNombre() <<".txt";
@@ -631,7 +663,7 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 }
 void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,puntoCompuesto* campoJ)
 {
-	int turnos = 0;
+	int turnos = campoJ->getContadorTurnos();
 	excepcionEspecifica excep;
 	bool puntoGanado = false;
 	bool* ptrPuntoGanado = &puntoGanado;
@@ -701,6 +733,27 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			//------------------------------------------
 		}
 		//---------------------------------------
+		if (seleccion != 2 && maxPlays == turnos)
+		{
+			if (p->getPuntos() > m->getPuntos())
+			{
+				cout << "Jugador 1, Puntos: " << p->getPuntos() << endl;
+				cout << "Maquina, Puntos: " << m->getPuntos() << endl;
+				cout << "Ganador de la partida: Jugador " << p->getNumero() << " ,nombre :" << p->getNombre() << endl;
+			}
+			else if (p->getPuntos() == m->getPuntos())
+			{
+				cout << "Jugador 1, Puntos: " << p->getPuntos() << endl;
+				cout << "Maquina, Puntos: " << m->getPuntos() << endl;
+				imprimirCadena("Empate!");
+			}
+			else
+			{
+				cout << "Jugador 1, Puntos: " << p->getPuntos() << endl;
+				cout << "Maquina, Puntos: " << m->getPuntos() << endl;
+				cout << "Ganador de la partida: Jugador " << m->getNumero() << " ,nombre :" << m->getNombre() << endl;
+			}
+		}
 		campoJ->guardarNombre("PartidasJugadas.txt");
 		stringstream r;
 		r << "archivos/" << campoJ->getNombre() << ".txt";

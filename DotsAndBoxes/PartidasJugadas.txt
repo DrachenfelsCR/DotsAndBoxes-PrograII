@@ -1,0 +1,2 @@
+PATE	persona	Maquina	Aleatorio	8	5	1	1	1	PATE vs Maquina
+LOBO	persona	Maquina	Aleatorio	3	5	1	1	1	LOBO vs Maquina

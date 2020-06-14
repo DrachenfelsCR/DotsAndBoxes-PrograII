@@ -10,7 +10,7 @@ using namespace std;
 class Estrategia {
 
 public:
-	virtual void jugar (puntoCompuesto*,Maquina*) = 0;
+	virtual void jugar (puntoCompuesto*,Maquina*, bool*) = 0;
 	void verificaPunto(puntoSimple*, int, int, int, int);
 	puntoSimple* getPuntoOrigen();
 	puntoSimple* getPuntoDestino();

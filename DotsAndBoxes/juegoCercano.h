@@ -4,7 +4,7 @@
 class juegoCercano : public Estrategia {
 
 public:
-	virtual void jugar(puntoCompuesto*, Maquina*);
+	virtual void jugar(puntoCompuesto*, Maquina*, bool*);
 
 
 

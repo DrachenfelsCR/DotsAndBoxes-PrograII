@@ -1,6 +1,6 @@
 #include "juegoIslas.h"
 
-void juegoIslas::jugar(puntoCompuesto*,Maquina*)
+void juegoIslas::jugar(puntoCompuesto*c,Maquina*m)
 {
     this->puntoOrigen = nullptr;
     this->puntoDestino = nullptr;

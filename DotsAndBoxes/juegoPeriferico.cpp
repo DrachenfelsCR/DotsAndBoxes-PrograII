@@ -1,6 +1,6 @@
 #include "juegoPeriferico.h"
 
-void juegoPeriferico::jugar(puntoCompuesto*,Maquina*)
+void juegoPeriferico::jugar(puntoCompuesto*c,Maquina*m)
 {
     this->puntoOrigen = nullptr;
     this->puntoDestino = nullptr;

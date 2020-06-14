@@ -1,7 +1,8 @@
 #include "juegoCentral.h"
 
-void juegoCentral::jugar(puntoCompuesto* c,Maquina* m)
+void juegoCentral::jugar(puntoCompuesto* c,Maquina* m, bool* ptrPuntoGanado)
 {
+    int puntosActuales = m->getPuntos();
     this->puntoOrigen = nullptr;
     this->puntoDestino = nullptr;
     srand(time(NULL));
@@ -166,24 +167,56 @@ void juegoCentral::jugar(puntoCompuesto* c,Maquina* m)
                 puntoOrigen->setAbajo(true);
                 puntoDestino->setArriba(true);
                 c->movimientoAbajo(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (fila2 < fila)
             {
                 puntoOrigen->setArriba(true);
                 puntoDestino->setAbajo(true);
                 c->movimientoArriba(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (columna2 > columna)
             {
                 puntoOrigen->setDerecha(true);
                 puntoDestino->setIzquierda(true);
                 c->movimientoDerecha(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (columna2 < columna)
             {
                 puntoOrigen->setIzquierda(true);
                 puntoDestino->setDerecha(true);
                 c->movimientoIzquierda(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
         }
     }

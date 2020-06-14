@@ -672,7 +672,7 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 				break;
 			}
 			//-----------TURNO MAQUINA----------------
-			m->getStrategy()->jugar(campoJ,m);
+			m->getStrategy()->jugar(campoJ,m,ptrPuntoGanado);
 			puntoSimple* pOrigen = m->getStrategy()->getPuntoOrigen();
 			puntoSimple* pDestino = m->getStrategy()->getPuntoDestino();
 			verificaPunto(pOrigen, campoJ->getFilasM(), campoJ->getcolumna1() * 2 , campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);

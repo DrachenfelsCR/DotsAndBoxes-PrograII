@@ -217,7 +217,7 @@ void juegoAletorio::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
                 }
                 else
                 {
-                    ptrPuntoGanado = false;
+                    *ptrPuntoGanado = false;
                 }
             }
         }

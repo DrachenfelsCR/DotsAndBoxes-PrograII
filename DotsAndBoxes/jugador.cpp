@@ -40,7 +40,7 @@ void jugador::aumentarPuntos(int puntos)
 
 string jugador::getNombre()
 {
-	return this->nombre;
+return this->nombre;
 }
 
 int jugador::getNumero()

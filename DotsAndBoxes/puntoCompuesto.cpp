@@ -196,13 +196,16 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 {
 					 outp << m[i][j]->getJugador()->getNombre() << '\t';
 					 outp << m[i][j]->getJugador()->getNumero() << '\t';
+					 if (m[i][j]->getJugador()->getNombre() == "Maquina")
+					 {
+						
+					 }
 				 }
 				 else
 				 {
 					 outp << "0" <<'\t';
 					 outp << "0" <<'\t';
-				 }
-				 
+				 }				 
 				 //----------------------------
 				 if (m[i][j]->checkIzq())
 				 {
@@ -442,6 +445,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 					 if ((m[i - 1][j])->getConquista() == false)
 					 {
 						 (m[i - 1][j])->setConquista(true);
+						 (m[i - 1 ][j])->setJugador(jugadorAct);
 						 (m[i][j])->setJugador(jugadorAct);
 						 jugadorAct->aumentarPuntos(1);
 					 }					
@@ -460,7 +464,7 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 					if ((m[i - 1][j - 1])->getConquista() == false)
 					{
 						(m[i - 1][j - 1])->setConquista(true);
-						(m[i][j])->setJugador(jugadorAct);
+						(m[i - 1][j - 1])->setJugador(jugadorAct);
 						jugadorAct->aumentarPuntos(1);
 					}					
 				}

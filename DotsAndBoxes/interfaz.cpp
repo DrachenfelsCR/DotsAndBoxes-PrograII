@@ -203,6 +203,13 @@ void interfaz::jugadorVrsMaquina()
 		Estrategia* estCercano = new juegoCercano();
 		Estrategia* estIslas = new juegoIslas();
 		Estrategia* estPeriferico = new juegoPeriferico();
+		//------
+		estAleatorio->setNombre("Aleatorio");
+		estCentral->setNombre("Central") ;
+		estCercano->setNombre("Cercano") ;
+		estIslas->setNombre("Islas");
+		estPeriferico->setNombre("Periferico");
+		//----
 		switch (opc)
 		{
 		case 1:
@@ -673,7 +680,7 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				}
 			}
 			// ------------VERIFICA QUE EL PUNTO DE DESTINO NO SEA NULO
-			while ((puntoDestino == nullptr) || movimientoIlegal == true ||((puntoDestino->getX() == puntoOrigen->getX()) && (puntoDestino->getY() == puntoOrigen->getY())))
+			while ((puntoDestino == nullptr) || movimientoIlegal == true || ((puntoDestino->getX() == puntoOrigen->getX()) && (puntoDestino->getY() == puntoOrigen->getY())))
 			{
 				//----------------------------------------------------
 				imprimirCadena("Este punto no esta disponible, trate otra coordenada");
@@ -691,52 +698,56 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				columna2 = rangoCeroAN(columnasMax);
 				puntoDestino = campoJ->buscar(fila2, columna2);
 				//----------------------------------------------------
-				if (fila2 > fila)
+				if (puntoDestino != nullptr)
 				{
-					if ((puntoOrigen->checkAbajo() && puntoDestino->checkArriba()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+					if (fila2 > fila)
 					{
-						movimientoIlegal = true;
-					}
-					else
-						movimientoIlegal = false;
+						if ((puntoOrigen->checkAbajo() && puntoDestino->checkArriba()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+						{
+							movimientoIlegal = true;
+						}
+						else
+							movimientoIlegal = false;
 
-				}
-				else if (fila2 < fila)
-				{
-					if ((puntoOrigen->checkArriba() && puntoDestino->checkAbajo()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
-					{
-						movimientoIlegal = true;
 					}
-					else
-						movimientoIlegal = false;
-				}
-				else if (columna2 > columna)
-				{
-					if ((puntoOrigen->checkDerecha() && puntoDestino->checkIzq()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+					else if (fila2 < fila)
 					{
-						movimientoIlegal = true;
+						if ((puntoOrigen->checkArriba() && puntoDestino->checkAbajo()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+						{
+							movimientoIlegal = true;
+						}
+						else
+							movimientoIlegal = false;
 					}
-					else
-						movimientoIlegal = false;
-				}
-				else if (columna2 < columna)
-				{
-					if ((puntoOrigen->checkIzq() && puntoDestino->checkDerecha()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+					else if (columna2 > columna)
 					{
-						movimientoIlegal = true;
+						if ((puntoOrigen->checkDerecha() && puntoDestino->checkIzq()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+						{
+							movimientoIlegal = true;
+						}
+						else
+							movimientoIlegal = false;
 					}
-					else
-						movimientoIlegal = false;
+					else if (columna2 < columna)
+					{
+						if ((puntoOrigen->checkIzq() && puntoDestino->checkDerecha()) || (puntoOrigen->getConquistado() == true || puntoDestino->getConquistado() == true))
+						{
+							movimientoIlegal = true;
+						}
+						else
+							movimientoIlegal = false;
+					}
+					//---------------------------			
+					//-----FIN DE VERIFICACION DEL PUNTO DE DESTINO NULO
+					
 				}
 			}
-			//---------------------------			
-			//-----FIN DE VERIFICACION DEL PUNTO DE DESTINO NULO
 			if (fila2 > fila)
 			{
 				puntoOrigen->setAbajo(true);
 				puntoDestino->setArriba(true);
 				campoJ->movimientoAbajo(fila2, columna2, p);
-				
+
 			}
 			else if (fila2 < fila)
 			{
@@ -783,6 +794,14 @@ void interfaz::mostrarCampo(int mayor, puntoCompuesto* campodeJuego)
 
 void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int cols2, int cols3)
 {	
+	if (filasMax == 3)
+	{
+		filasMax = 2;
+	}
+	else if (filasMax == 6)
+	{
+		filasMax = 5;
+	}
 	//verifica cual columna esta vacia
 	int columna1 = (columna1Maxima(cols1, cols2, cols3)) - 1; 
 	int columna2 = (columna2Maxima(cols1, cols2, cols3)) - 1;

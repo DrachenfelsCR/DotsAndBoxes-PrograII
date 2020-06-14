@@ -194,7 +194,7 @@ void interfaz::jugadorVrsMaquina()
 		imprimirCadena("Digite la estrategia deseada para la maquina: ");
 		imprimirCadena("1)Juego aleatorio");
 		imprimirCadena("2)Juega  cercano");
-		imprimirCadena("3)Juego periférico");
+		imprimirCadena("3)Juego periferico");
 		imprimirCadena("4)Juego central");
 		imprimirCadena("5)Juego islas");
 		opc = leerSeleccion(5);
@@ -628,8 +628,9 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				columna2 = rangoCeroAN(columnasMax);
 			}
 			puntoDestino = campoJ->buscar(fila2, columna2);
+			
 			campoJ->setUltimafil(fila2);
-			campoJ->setUltimaCol(columna2);
+			
 			//---------------------------------------------
 			if (puntoOrigen != nullptr && puntoDestino != nullptr)
 			{

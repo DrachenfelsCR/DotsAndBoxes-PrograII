@@ -619,8 +619,8 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 					}
 				}
 			}	
-			campoJ->setUltimafil(fila + 1);
-			campoJ->setUltimaCol(columna + 1);
+			campoJ->setUltimafil(fila);
+			campoJ->setUltimaCol(columna);
 			//-----FIN DE VERIFICACION DEL PUNTO DE ORIGEN NULO
 			imprimirCadena("Punto de destino, fila: ");
 			int fila2 = rangoCeroAN(9);

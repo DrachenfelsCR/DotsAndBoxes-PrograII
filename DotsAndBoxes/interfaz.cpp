@@ -623,7 +623,8 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 			}
 			puntoDestino = campoJ->buscar(fila2, columna2);
 			
-			campoJ->setUltimafil(fila);
+			campoJ->setUltimafil(fila2);
+			
 			//---------------------------------------------
 			if (fila2 > fila)
 			{

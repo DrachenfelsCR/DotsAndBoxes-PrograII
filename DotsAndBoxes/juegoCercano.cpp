@@ -18,7 +18,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m)
     while (puntoOrigen == nullptr)
     {
         aleatorizador = rand() % 4 + 1;
-        i = rand() % 2 + c->getUltimaFil();
+        i = rand() % (c->getUltimaFil()+1) + 0;
         j = rand() % colsMayor;
         puntoOrigen = c->buscar(i, j);
         fila = i;

@@ -1,9 +1,10 @@
 #include "juegoCercano.h"
 
-void juegoCercano::jugar(puntoCompuesto*c,Maquina*m)
+void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
 {
     this->puntoOrigen = nullptr;
     this->puntoDestino = nullptr;
+    int puntosActuales = m->getPuntos();
     srand(time(NULL));
     int aleatorizador;
     int i = 0;
@@ -195,24 +196,56 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m)
                 puntoOrigen->setAbajo(true);
                 puntoDestino->setArriba(true);
                 c->movimientoAbajo(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (fila2 < fila)
             {
                 puntoOrigen->setArriba(true);
                 puntoDestino->setAbajo(true);
                 c->movimientoArriba(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (columna2 > columna)
             {
                 puntoOrigen->setDerecha(true);
                 puntoDestino->setIzquierda(true);
                 c->movimientoDerecha(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
             else if (columna2 < columna)
             {
                 puntoOrigen->setIzquierda(true);
                 puntoDestino->setDerecha(true);
                 c->movimientoIzquierda(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
+                }
             }
         }
     }

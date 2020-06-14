@@ -13,6 +13,9 @@ public:
 	void verificaPunto(puntoSimple*, int, int, int, int);
 	puntoSimple* getPuntoOrigen();
 	puntoSimple* getPuntoDestino();
+	bool jugadaInteligente(puntoCompuesto*, Maquina*);
+	void setPuntoOrigen(puntoSimple*);
+	void setPuntoDestino(puntoSimple*);
 protected:
 	puntoSimple* puntoOrigen = nullptr;
 	puntoSimple* puntoDestino = nullptr;

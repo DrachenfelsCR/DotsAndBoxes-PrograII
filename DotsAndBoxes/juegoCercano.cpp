@@ -26,25 +26,30 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m)
             i = c->getUltimaFil();
             j = c->getUltimaCol();
             if (!(puntoOrigen = c->buscar(i, j)))
-            {
+            {   
+                //Forzar izquierda
                 i = i + 1;
-                j = j + 1;
-            }
-            else if (!(puntoOrigen = c->buscar(i, j)))
-            {
-                i = i - 1;
                 j = j - 1;
             }
             else if (!(puntoOrigen = c->buscar(i, j)))
             {
-                j = j + 1;
-            
+                //Forzar Arriba
+                i = i - 1;
+                j= j;
+            }
+            else if (!(puntoOrigen = c->buscar(i, j)))
+            {
+                i = i;
+                j= j + 1;
             }
             else if (!(puntoOrigen = c->buscar(i, j)))
             {
                 i = i + 1;
-               ;
+                j = j;
             }
+          
+            
+            
             puntoOrigen = c->buscar(i, j);
             fila = i;
             columna = j;

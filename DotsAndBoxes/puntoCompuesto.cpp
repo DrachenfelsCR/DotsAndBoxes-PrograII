@@ -6,6 +6,10 @@ puntoCompuesto::puntoCompuesto(int filas, int columnas)
 	this->mayor = 0;
 	this->filas = filas;
 	this->columnas = columnas;
+	this->jugador1 = nullptr;
+	this->jugador2 = nullptr;
+	this->laMaquina = nullptr;
+	this->contadorTurnos = 0;
 	m = new puntoSimple * *[filas];
 	for (int i = 0; i < filas; i++)
 	{
@@ -196,10 +200,6 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 				 {
 					 outp << m[i][j]->getJugador()->getNombre() << '\t';
 					 outp << m[i][j]->getJugador()->getNumero() << '\t';
-					 if (m[i][j]->getJugador()->getNombre() == "Maquina")
-					 {
-						
-					 }
 				 }
 				 else
 				 {
@@ -261,7 +261,17 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 ofstream outp;
 	 outp.open(archivo.c_str(), ofstream::app);
 	 outp << this->jugador1->getNombre() << '\t';
-	 outp << this->jugador2->getNombre() << '\t';
+	 outp << "persona" << '\t';
+	 if (this->jugador2 != nullptr)
+	 {
+		 outp << this->jugador2->getNombre() << '\t';
+		 outp << "persona" << '\t';
+	 }
+	 else if (this->laMaquina != nullptr)
+	 {
+		 outp << this->laMaquina->getNombre() << '\t';
+		 outp << this->laMaquina->getStrategy() << '\t';
+	 }
 	 outp << this->mayor << '\t';
 	 outp << this->columnas1 << '\t';
 	 outp << this->columnas2 << '\t';
@@ -298,6 +308,16 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 this->columnas3 = c3;
  }
 
+ void puntoCompuesto::setMaquina(Maquina* maquina)
+ {
+	 this->laMaquina = maquina;
+ }
+
+ void puntoCompuesto::setTurnos(int turnos)
+ {
+	 this->contadorTurnos = turnos;
+ }
+
  int puntoCompuesto::getcolumna1()
  {
 	 return this->columnas1;
@@ -331,6 +351,11 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
  int puntoCompuesto::getFilasM()
  {
 	 return this->filasM;
+ }
+
+ int puntoCompuesto::getContadorTurnos()
+ {
+	 return this->contadorTurnos;
  }
 
 
@@ -430,6 +455,11 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 {
 	 return (((columnas1-1) * 3 + columnas1 * 7) + ((columnas2-1) * 3 + columnas2 * 12) + ((columnas3-1) * 3 + columnas3 * 22));
 	 }	
+ }
+
+ Maquina* puntoCompuesto::getMaquina()
+ {
+	 return this->laMaquina;
  }
 
  void puntoCompuesto::movimientoAbajo(int i, int j, jugador* jugadorAct)

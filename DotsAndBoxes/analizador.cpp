@@ -87,12 +87,14 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo, jug
 	input.close();
 }
 
-void analizador::recuperarNombrePartidas(string archivo, string* v, string* nombre1, string* nombre2, int* mayorPtr, int* ptrColumna1, int* ptrColumna2, int* ptrColumna3)
+void analizador::recuperarNombrePartidas(string archivo, string* v, string* nombre1, string* nombre2, int* mayorPtr, int* ptrColumna1, int* ptrColumna2, int* ptrColumna3, string* estrategia, Maquina* m)
 {
 	ifstream input;
 	string vectorNombres[20];
 	string nomJugador1;
 	string nomJugador2;
+	string estrategia1;
+	string estrategia2;
 	string mayorStr;
 	//-----------------
 	string columnas1str;
@@ -108,7 +110,9 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* nomb
 	while (input.good())
 	{
 		getline(input, nomJugador1, '\t');
+		getline(input, estrategia1, '\t');
 		getline(input, nomJugador2, '\t');
+		getline(input, estrategia2, '\t');
 		getline(input, mayorStr, '\t');
 		getline(input, columnas1str, '\t');
 		getline(input, columnas2str, '\t');
@@ -123,6 +127,7 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* nomb
 			v[i] = vectorNombres[i];
 			*nombre1 = nomJugador1;
 			*nombre2 = nomJugador2;
+			*estrategia = estrategia2;
 			*mayorPtr = mayor;
 			i++;
 		}

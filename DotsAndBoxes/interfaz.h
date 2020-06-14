@@ -17,7 +17,7 @@ public:
 	puntoCompuesto* crearCampoDeJuego(int,int,int);
 	void turnoDeJuego(jugador*, jugador*, int, puntoCompuesto*);
 	void turnoDeJuegovsMaquina(jugador*, Maquina*,int,puntoCompuesto*);
-	void turnoJugador(jugador*, int, puntoCompuesto*);
+	void turnoJugador(jugador*, int, puntoCompuesto*, bool*);
 	void mostrarCampo(int, puntoCompuesto*);
 	void verificaPunto(puntoSimple*, int, int, int, int);
 	int columna1Maxima(int,int,int);

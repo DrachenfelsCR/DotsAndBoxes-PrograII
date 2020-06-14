@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <sstream>
-#include "arreglo.h"
 using namespace std;
 
 class puntoBase

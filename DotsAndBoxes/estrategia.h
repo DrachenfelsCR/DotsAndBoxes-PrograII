@@ -5,6 +5,7 @@
 #include "Maquina.h"
 #include "utiles.h"
 class Maquina;
+
 using namespace std;
 class Estrategia {
 

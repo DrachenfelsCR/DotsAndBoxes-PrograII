@@ -120,7 +120,6 @@ void interfaz::jugadorVrsPersona()
 		this->campoJuegoC->setMayor(mayor);
 		this->campoJuegoC->setJugador1(player1);
 		this->campoJuegoC->setJugador2(player2);
-		mostrarCampo(mayor, this->campoJuegoC);
 		//------EMPIEZA TURNO-------------
 		turnoDeJuego(player1,player2, mayor, this->campoJuegoC);
 	}
@@ -239,7 +238,6 @@ void interfaz::jugadorVrsMaquina()
 		this->campoJuegoC->setJugador1(player1);
 		this->campoJuegoC->setJugador2(player2);
 
-		mostrarCampo(mayor, this->campoJuegoC);
 		//------EMPIEZA TURNO-------------
 		turnoDeJuegovsMaquina(player1, player2, mayor, this->campoJuegoC);
 	}
@@ -259,6 +257,10 @@ void interfaz::cargarPartida()
 	excepcionEspecifica falloVacio;
 	string nombreJ1;
 	string nombreJ2;
+	string laEstrategia;
+	string* ptrStrategy = &laEstrategia;
+	Maquina* bot = nullptr;
+	jugador* jugadorN2 = nullptr;
 	int mayor;
 	//------
 	int columna1;
@@ -281,7 +283,7 @@ void interfaz::cargarPartida()
 		}
 		analizador analiza;
 		int seleccion = 0;
-		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3);
+		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot);
 		for (int i = 0; i < 20; i++)
 		{
 			if (nombrePartidas[i] != "")
@@ -306,12 +308,52 @@ void interfaz::cargarPartida()
 
 		//-------------------------------------------
 		this->campoJuegoC = new puntoCompuesto(9, 14);
-		jugador* jugadorN1 = new jugador(nombreJ1,1);
-		jugador* jugadorN2 = new jugador(nombreJ2, 2);
+		jugador* jugadorN1 = new jugador(nombreJ1, 1);
+		if (nombreJ2 == "Maquina")
+		{
+			bot = new Maquina(nombreJ2, 2);
+			if (laEstrategia == "Aleatorio")
+			{
+				juegoAletorio* jAleatorio = new juegoAletorio();
+				bot->setStrategy(jAleatorio);
+			}
+			else if (laEstrategia == "Central")
+			{
+				juegoCentral* jCentral = new juegoCentral();
+				bot->setStrategy(jCentral);
+			}
+			else if (laEstrategia == "Cercano")
+			{
+				juegoCercano* jCercano = new juegoCercano();
+				bot->setStrategy(jCercano);
+			}
+			else if (laEstrategia == "Islas")
+			{
+				juegoIslas* jIslas = new juegoIslas();
+				bot->setStrategy(jIslas);
+			}
+			else if (laEstrategia == "Periferico")
+			{
+				juegoPeriferico* jPeriferico = new juegoPeriferico();
+				bot->setStrategy(jPeriferico);
+			}
+			this->campoJuegoC->setJugador2(bot);
+		}
+		else
+		{
+			jugadorN2 = new jugador(nombreJ2, 2);
+			this->campoJuegoC->setJugador2(jugadorN2);
+		}
 		this->campoJuegoC->setJugador1(jugadorN1);
-		this->campoJuegoC->setJugador2(jugadorN2);
 		this->campoJuegoC->setColumnas(columna1, columna2, columna3);
-		analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str(), jugadorN1, jugadorN2);
+		if (bot != nullptr)
+		{
+			analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str(), jugadorN1, bot);
+		}
+		else
+		{
+			analiza.recuperarCampoJuego(this->campoJuegoC, partidaCargar.str(), jugadorN1, jugadorN2);
+		}
 		//--------------------------------------------------------------------
 		this->campoJuegoC->setFilasM();
 		mostrarCampo(mayor, this->campoJuegoC);
@@ -500,25 +542,76 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 {
 	int turnos = 0;
 	excepcionEspecifica excep;
+	bool puntoGanado = false;
+	bool* ptrPuntoGanado = &puntoGanado;
+	bool abandonar = false;
+	int seleccion = 0;
 	try
 	{
 		int maxPlays = campoJ->jugadasMaximas();
 		while (maxPlays != turnos)
 		{
 			//------------TURNO JUGADOR 1---------------
-			turnoJugador(p1, columnasMax, campoJ);
-			limpiaPantalla();
 			mostrarCampo(columnasMax, campoJ);
+			turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
-			if (campoJ->jugadasMaximas() == turnos)
+			imprimirCadena("  (1)Seguir jugando");
+			imprimirCadena("  (2)Regresar al menú");
+			seleccion = leerSeleccion(2);
+			limpiaPantalla();
+			if (seleccion == 2)
+			{
+				turnos = maxPlays;
+				break;
+			}
+			while (puntoGanado == true)
+			{
+				mostrarCampo(columnasMax, campoJ);
+				turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
+				turnos++;
+				imprimirCadena("  (1)Seguir jugando");
+				imprimirCadena("  (2)Regresar al menú");
+				seleccion = leerSeleccion(2);
+				limpiaPantalla();
+				if (seleccion == 2)
+				{
+					turnos = maxPlays;
+					break;
+				}
+				
+			}
+			if (turnos == maxPlays)
 			{
 				break;
 			}
-			//-----------TURNO JUGADOR----------------
-			turnoJugador(p2, columnasMax, campoJ);
-			limpiaPantalla();
+			//-----------TURNO JUGADOR 2----------------
 			mostrarCampo(columnasMax, campoJ);
+			turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
+			imprimirCadena("  (1)Seguir jugando");
+			imprimirCadena("  (2)Regresar al menú");
+			seleccion = leerSeleccion(2);
+			limpiaPantalla();
+			if (seleccion == 2)
+			{
+				turnos = maxPlays;
+				break;
+			}
+			while (puntoGanado == true)
+			{
+				mostrarCampo(columnasMax, campoJ);
+				turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
+				turnos++;
+				imprimirCadena("  (1)Seguir jugando");
+				imprimirCadena("  (2)Regresar al menú");
+				seleccion = leerSeleccion(2);
+				limpiaPantalla();
+				if (seleccion == 2)
+				{
+					turnos = maxPlays;
+					break;
+				}	
+			}		
 			//------------------------------------------
 		}
 		//---------------------------------------
@@ -536,6 +629,9 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 {
 	int turnos = 0;
 	excepcionEspecifica excep;
+	bool puntoGanado = false;
+	bool* ptrPuntoGanado = &puntoGanado;
+	int seleccion = 0;
 	try
 	{
 		int maxPlays = campoJ->jugadasMaximas();
@@ -543,11 +639,35 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 		while (maxPlays != turnos)
 		{
 			//------------TURNO JUGADOR 1---------------
-			turnoJugador(p, columnasMax, campoJ);
-			limpiaPantalla();
 			mostrarCampo(columnasMax, campoJ);
+			turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
-			if (campoJ->jugadasMaximas() == turnos)
+			imprimirCadena("  (1)Seguir jugando");
+			imprimirCadena("  (2)Regresar al menú");
+			seleccion = leerSeleccion(2);
+			limpiaPantalla();
+			if (seleccion == 2)
+			{
+				turnos = maxPlays;
+				break;
+			}
+			while (puntoGanado == true)
+			{
+				mostrarCampo(columnasMax, campoJ);
+				turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
+				turnos++;
+				imprimirCadena("  (1)Seguir jugando");
+				imprimirCadena("  (2)Regresar al menú");
+				seleccion = leerSeleccion(2);
+				limpiaPantalla();
+				if (seleccion == 2)
+				{
+					turnos = maxPlays;
+					break;
+				}
+
+			}
+			if (turnos == maxPlays)
 			{
 				break;
 			}
@@ -572,8 +692,9 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 	{
 	}
 }
-void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ)
+void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ, bool* ptrPuntoGanado)
 {
+	int puntosActuales = p->getPuntos();
 	puntoSimple* puntoOrigen = nullptr;
 	puntoSimple* puntoDestino = nullptr;
 	bool movimientoIlegal = false;
@@ -747,6 +868,14 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				puntoOrigen->setAbajo(true);
 				puntoDestino->setArriba(true);
 				campoJ->movimientoAbajo(fila2, columna2, p);
+				if (puntosActuales < p->getPuntos())
+				{
+					*ptrPuntoGanado = true;
+				}
+				else
+				{
+					*ptrPuntoGanado = false;
+				}
 
 			}
 			else if (fila2 < fila)
@@ -754,19 +883,42 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				puntoOrigen->setArriba(true);
 				puntoDestino->setAbajo(true);
 				campoJ->movimientoArriba(fila2, columna2, p);
+				if (puntosActuales < p->getPuntos())
+				{
+					*ptrPuntoGanado = true;
+				}
+				else
+				{
+					*ptrPuntoGanado = false;
+				}
 			}
 			else if (columna2 > columna)
 			{
 				puntoOrigen->setDerecha(true);
 				puntoDestino->setIzquierda(true);
 				campoJ->movimientoDerecha(fila2, columna2, p);
-
+				if (puntosActuales < p->getPuntos())
+				{
+					*ptrPuntoGanado = true;
+				}
+				else
+				{
+					*ptrPuntoGanado = false;
+				}
 			}
 			else if (columna2 < columna)
 			{
 				puntoOrigen->setIzquierda(true);
 				puntoDestino->setDerecha(true);
 				campoJ->movimientoIzquierda(fila2, columna2, p);
+				if (puntosActuales < p->getPuntos())
+				{
+					*ptrPuntoGanado = true;
+				}
+				else
+				{
+					*ptrPuntoGanado = false;
+				}
 			}
 			verificaPunto(puntoOrigen, campoJ->getFilasM(), campoJ->getcolumna1() * 2, campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);
 			verificaPunto(puntoDestino, campoJ->getFilasM(), campoJ->getcolumna1() * 2, campoJ->getcolumna2() * 3, campoJ->getcolumna3() * 5);

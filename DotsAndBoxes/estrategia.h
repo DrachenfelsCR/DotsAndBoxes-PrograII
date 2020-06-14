@@ -16,8 +16,10 @@ public:
 	bool jugadaInteligente(puntoCompuesto*, Maquina*);
 	void setPuntoOrigen(puntoSimple*);
 	void setPuntoDestino(puntoSimple*);
+	string getNombre();
+	void setNombre(string);
 protected:
 	puntoSimple* puntoOrigen = nullptr;
 	puntoSimple* puntoDestino = nullptr;
-
+	string nombre;
 };

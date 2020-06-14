@@ -117,3 +117,13 @@ void Estrategia::setPuntoDestino(puntoSimple*pd)
 {
     this->puntoDestino = pd;
 }
+
+string Estrategia::getNombre()
+{
+    return this->nombre;
+}
+
+void Estrategia::setNombre(string nombre)
+{
+    this->nombre = nombre;
+}

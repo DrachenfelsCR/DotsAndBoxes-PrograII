@@ -27,12 +27,13 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             aleatorizador = rand() % 4 + 1;
             i = (c->getUltimaFil());
             j = (c->getUltimaCol());
+            puntoOrigen = c->buscar(i, j);
 
-            if ((puntoOrigen = c->buscar(i, j)) == nullptr)
+            if ((puntoOrigen = c->buscar(i, j)) ==nullptr)
             {
                 i = i;
                 j = j - 1;
-                if (j < 0 || colsMayor)
+                if (j < 0 )
                 {
                     j = 666;
                 }

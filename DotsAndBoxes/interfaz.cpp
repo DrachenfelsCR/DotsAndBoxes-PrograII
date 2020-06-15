@@ -970,6 +970,8 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 			{
 				puntoOrigen->setAbajo(true);
 				puntoDestino->setArriba(true);
+				campoJ->setColumasFaker(columna2);
+				campoJ->setFilasFaker(fila2);
 				campoJ->movimientoAbajo(fila2, columna2, p);
 				if (puntosActuales < p->getPuntos())
 				{

@@ -87,10 +87,6 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
 
             else
             {
-                opc = true;
-                this->puntoOrigen = nullptr;
-                this->puntoDestino = nullptr;
-                srand(time(NULL));
                 if (jugadaInteligente(c, m, ptrPuntoGanado))
                 {
                 }

@@ -23,8 +23,8 @@ void juegoCentral::jugar(puntoCompuesto* c,Maquina* m, bool* ptrPuntoGanado)
         while (puntoOrigen == nullptr)
         {
             aleatorizador = rand() % 4 + 1;
-            i = rand() % c->getFilasM();
-            j = rand() % colsMayor;
+            i = rand() % (c->getFilasM()/2);
+            j = rand() % (colsMayor/2);
             puntoOrigen = c->buscar(i, j);
             fila = i;
             columna = j;

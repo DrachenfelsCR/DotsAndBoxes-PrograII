@@ -22,21 +22,24 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
         ///---------------
         while (puntoOrigen == nullptr)
         {
-
+            
             aleatorizador = rand() % 4 + 1;
             i = (c->getUltimaFil());
-            j = (c->getUltimaCol());
-            if ((puntoOrigen = c->buscar(i, j))==nullptr)
+            j = (rand() % colsMayor + 0 );
+
+            if ((puntoOrigen = c->buscar(i, j)) == nullptr)
             {
-                if (i < 0)
+                i = i;
+                j = j - 1;
+                if (j < 0 || colsMayor)
                 {
-                    i = 666;
+                    j = 666;
                 }
                 if (puntoOrigen->checkIzq() )
                 {
                     i = 666;
                 }
-                break;
+                
             }
             else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
             {
@@ -50,36 +53,45 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
                 {
                     i = 666;
                 }
+               
             }
             else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
             {
                 i = i;
                 j = j + 1;
+                if (j > colsMayor)
+                {
+                    i = 666;
+                }
                 if (puntoOrigen->checkDerecha())
                 {
                     i = 666;
                 }
+               
             }
             else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
             {
                 i = i + 1;
                 j = j;
+                if ( i > c->getFilasM())
+                {
+                    i = 666;
+                }
                 if (puntoOrigen->checkAbajo())
                 {
                     i = 666;
                 }
+                
             }
             if (i == 666 || j == 666)
             {
                 puntoDestino = nullptr;
             }
-
             else
             {
-                
-                    puntoDestino = c->buscar(i, j);
-                
+                puntoOrigen = c->buscar(i, j);
             }
+           
 
   
             fila = i;
@@ -94,6 +106,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
                 }
 
             }
+            
         }
         //--------------------
         int iDestino = 0;
@@ -104,7 +117,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             //Forzar izquierda
             iDestino = i;
             yDestino = j - 1;
-            if (yDestino < 0 || yDestino> colsMayor)
+            if (yDestino < 0 )
             {
                 yDestino = 666;
             }
@@ -117,7 +130,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             //Forzar arriba
             iDestino = i - 1;
             yDestino = j;
-            if (iDestino < 0 || iDestino> c->getFilasM())
+            if (iDestino < 0)
             {
                 iDestino = 666;
             }
@@ -175,7 +188,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
                 //Forzar izquierda
                 iDestino = i;
                 yDestino = j - 1;
-                if (yDestino < 0 || yDestino> colsMayor)
+                if (yDestino < 0 )
                 {
                     yDestino = 666;
                 }
@@ -188,7 +201,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
                 //Forzar arriba
                 iDestino = i - 1;
                 yDestino = j;
-                if (iDestino < 0 || iDestino > c->getFilasM())
+                if (iDestino < 0 )
                 {
                     iDestino = 666;
                 }

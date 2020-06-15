@@ -291,7 +291,7 @@ void interfaz::cargarPartida()
 		analizador analiza;
 		int seleccion = 0;
 		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, estrategias, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot, ptrTurnos, ptrPuntos1, ptrPuntos2);
-		this->campoJuegoC = crearCampoDeJuego(columna1, columna2, columna3);
+		
 		for (int i = 0; i < 20; i++)
 		{
 			if (nombrePartidas[i] != "")
@@ -308,6 +308,7 @@ void interfaz::cargarPartida()
 		{
 			throw falloVacio;
 		}
+		this->campoJuegoC = crearCampoDeJuego(columna1, columna2, columna3);
 		imprimirCadena("Escriba el numero de partida que quiere cargar");
 		seleccion = leerSeleccion(contador);
 		stringstream partidaCargar;

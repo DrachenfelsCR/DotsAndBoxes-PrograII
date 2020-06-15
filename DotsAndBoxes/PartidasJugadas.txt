@@ -2,3 +2,4 @@ PATE	persona	Maquina	Aleatorio	8	5	1	1	1	PATE vs Maquina
 LOBO	persona	Maquina	Aleatorio	3	5	1	1	1	LOBO vs Maquina
 HENRY	persona	JULIO	persona	5	2	1	0	0	HENRY vs JULIO
 DAVID	persona	JOSE	persona	7	2	1	0	0	DAVID vs JOSE
+beto	persona	Maquina	Central	1	6	2	2	1	beto vs Maquina

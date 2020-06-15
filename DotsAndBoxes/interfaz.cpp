@@ -565,8 +565,10 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			//------------TURNO JUGADOR 1---------------
 			mostrarCampo(columnasMax, campoJ);
 			turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
+			limpiaPantalla();
 			turnos++;
 			campoJ->setTurnos(turnos);
+			mostrarCampo(columnasMax, campoJ);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -578,10 +580,16 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			}
 			while (puntoGanado == true)
 			{
+				if (turnos == maxPlays)
+				{
+					break;
+				}
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p1, columnasMax, campoJ, ptrPuntoGanado);
+				limpiaPantalla();
 				turnos++;
 				campoJ->setTurnos(turnos);
+				mostrarCampo(columnasMax, campoJ);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -602,6 +610,8 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
 			campoJ->setTurnos(turnos);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -613,10 +623,16 @@ void interfaz::turnoDeJuego(jugador* p1, jugador* p2, int columnasMax, puntoComp
 			}
 			while (puntoGanado == true)
 			{
+				if (turnos == maxPlays)
+				{
+					break;
+				}
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p2, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
 				campoJ->setTurnos(turnos);
+				limpiaPantalla();
+				mostrarCampo(columnasMax, campoJ);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -679,6 +695,8 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
 			campoJ->setTurnos(turnos);
+			limpiaPantalla();
+			mostrarCampo(columnasMax, campoJ);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -690,10 +708,16 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			}
 			while (puntoGanado == true)
 			{
+				if (maxPlays == turnos)
+				{
+					break;
+				}
 				mostrarCampo(columnasMax, campoJ);
 				turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
 				campoJ->setTurnos(turnos);
+				limpiaPantalla();
+				mostrarCampo(columnasMax, campoJ);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -721,6 +745,10 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			campoJ->setTurnos(turnos);
 			while (puntoGanado == true)
 			{
+				if (maxPlays == turnos)
+				{
+					break;
+				}
 				m->getStrategy()->jugar(campoJ, m, ptrPuntoGanado);
 				pOrigen = m->getStrategy()->getPuntoOrigen();
 				pDestino = m->getStrategy()->getPuntoDestino();
@@ -769,11 +797,13 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 	puntoSimple* puntoOrigen = nullptr;
 	puntoSimple* puntoDestino = nullptr;
 	bool movimientoIlegal = false;
+	int fila = 0;
+	int columna = 0;
+	int fila2 = 0;
+	int columna2 = 0;
 			cout << "Turno de Jugador " << p->getNombre() << endl;
-			int fila = 0;
-			int columna = 0;
 			imprimirCadena("Punto de origen, fila: ");
-			fila = rangoCeroAN(9);
+			fila = rangoCeroAN(8);
 			imprimirCadena("Punto de origen, columna: ");
 			columna = rangoCeroAN(columnasMax);
 			puntoOrigen = campoJ->buscar(fila, columna);
@@ -795,8 +825,8 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				mostrarCampo(columnasMax, campoJ);
 				//----------------------------------------------------
 				cout << "Turno de Jugador " << p->getNombre() << endl;
-				int fila = 0;
-				int columna = 0;
+				fila = 0;
+				columna = 0;
 				imprimirCadena("Punto de origen, fila: ");
 				fila = rangoCeroAN(9);
 				imprimirCadena("Punto de origen, columna: ");
@@ -815,11 +845,10 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 			campoJ->setUltimaCol(columna);
 			//-----FIN DE VERIFICACION DEL PUNTO DE ORIGEN NULO
 			imprimirCadena("Punto de destino, fila: ");
-			int fila2 = rangoCeroAN(9);
+			fila2 = rangoCeroAN(9);
 			imprimirCadena("Punto de destino, columna: ");
-			int columna2 = rangoCeroAN(columnasMax);
-			//-------------------------------------------------------------
-
+			columna2 = rangoCeroAN(columnasMax);
+			//------------------------------------------------------------
 			while ((fila2 >= (fila + 2)) || (fila2 <= (fila - 2)) || (columna2 >= (columna + 2)) || (columna2 <= (columna - 2)) || ((fila2 == fila+1) && (columna2 == columna+1)) || ((fila2 == fila + 1) && (columna2 == columna - 1)) || ((fila2 == fila - 1) && (columna2 == columna + 1)) || ((fila2 == fila - 1) && (columna2 == columna - 1)))
 			{
 				imprimirCadena("Este punto no esta disponible, utilice solo puntos adyacentes entre si");
@@ -829,9 +858,7 @@ void interfaz::turnoJugador(jugador* p,  int columnasMax, puntoCompuesto* campoJ
 				columna2 = rangoCeroAN(columnasMax);
 			}
 			puntoDestino = campoJ->buscar(fila2, columna2);
-			
-			
-			
+	
 			//---------------------------------------------
 			if (puntoOrigen != nullptr && puntoDestino != nullptr)
 			{

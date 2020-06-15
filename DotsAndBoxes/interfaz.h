@@ -3,8 +3,8 @@
 #include "puntoCompuesto.h"
 #include "Maquina.h"
 #include "incluirEstrategias.h"
-
 #include "analizador.h"
+
 class interfaz {
 	int opc;
 public:
@@ -25,7 +25,5 @@ public:
 	int columna3Maxima(int, int, int);
 private:
 	puntoCompuesto* campoJuegoC;
-
-
 
 };

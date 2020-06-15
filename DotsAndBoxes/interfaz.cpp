@@ -397,7 +397,58 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 	puntoCompuesto* campoJuego = new puntoCompuesto(9, 14);
 	campoJuego->setColumnas(tresXdos,tresXtres,tresXcinco);
 	//////////////////////////////////////////////////////////////////////
-	if (tresXdos == 0)
+	if (tresXdos == 0 && tresXtres == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas3; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else if (tresXdos == 0 && tresXcinco == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas2; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else if (tresXtres == 0 && tresXcinco == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = columnas1; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+		for (int i = 3; i < 9; i++)
+		{
+			for (int j = 0; j < 14; j++)
+			{
+				(campoJuego->getArreglo())[i][j] = nullptr;
+			}
+		}
+	}
+	else if (tresXdos == 0)
 	{
 		for (int i2 = 0; i2 < 3; i2++)
 		{
@@ -472,58 +523,6 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 			}
 		}
 	}
-	//////////////////////////////////////////////////////////////////////
-	else if (tresXdos == 0 && tresXtres == 0)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = columnas3; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-		for (int i = 3; i < 9; i++)
-		{
-			for (int j = 0; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-	}
-	else if (tresXdos == 0 && tresXcinco == 0)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = columnas2; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-		for (int i = 3; i < 9; i++)
-		{
-			for (int j = 0; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-	}
-	else if (tresXtres == 0 && tresXcinco == 0)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = columnas1; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-		for (int i = 3; i < 9; i++)
-		{
-			for (int j = 0; j < 14; j++)
-			{
-				(campoJuego->getArreglo())[i][j] = nullptr;
-			}
-		}
-	}
 	else
 	{
 		for (int i = 0; i < 3; i++)
@@ -548,10 +547,7 @@ puntoCompuesto* interfaz::crearCampoDeJuego(int tresXdos, int tresXtres, int tre
 				(campoJuego->getArreglo())[i3][j3] = nullptr;
 			}
 		}
-		
-
 	}
-
 	campoJuego->setFilasM();
 	return campoJuego;
 }

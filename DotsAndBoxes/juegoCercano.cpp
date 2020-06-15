@@ -27,7 +27,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             i = c->getUltimaFil();
             j = c->getUltimaCol();
             if (!(puntoOrigen = c->buscar(i, j)))
-            {   
+            {
                 //Forzar izquierda
                 i = i + 1;
                 j = j - 1;
@@ -36,22 +36,22 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             {
                 //Forzar Arriba
                 i = i - 1;
-                j= j;
+                j = j;
             }
             else if (!(puntoOrigen = c->buscar(i, j)))
             {
                 i = i;
-                j= j + 1;
+                j = j + 1;
             }
             else if (!(puntoOrigen = c->buscar(i, j)))
             {
                 i = i + 1;
                 j = j;
             }
-          
-            
-            
-            puntoOrigen = c->buscar(i, j);
+
+
+
+  
             fila = i;
             columna = j;
             if (puntoOrigen != nullptr)
@@ -60,10 +60,10 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
                 {
 
                     puntoOrigen = nullptr;
-                    
+
                 }
 
-            } 
+            }
         }
         //--------------------
         int iDestino = 0;
@@ -123,7 +123,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
         }
         else
         {
-            puntoDestino = c->buscar(iDestino, yDestino);
+            
         }
 
         while (puntoDestino == nullptr)
@@ -182,10 +182,13 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             {
                 puntoDestino = nullptr;
             }
-            else
+            else if (!(puntoDestino = c->buscar(iDestino, yDestino)))
             {
                 puntoDestino = c->buscar(iDestino, yDestino);
             }
+            
+                
+            
         }
         fila2 = iDestino;
         columna2 = yDestino;

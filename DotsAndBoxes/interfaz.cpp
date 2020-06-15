@@ -698,8 +698,6 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 			turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 			turnos++;
 			campoJ->setTurnos(turnos);
-			limpiaPantalla();
-			mostrarCampo(columnasMax, campoJ);
 			imprimirCadena("  (1)Seguir jugando");
 			imprimirCadena("  (2)Regresar al menú");
 			seleccion = leerSeleccion(2);
@@ -719,8 +717,6 @@ void interfaz::turnoDeJuegovsMaquina(jugador* p, Maquina* m,int columnasMax,punt
 				turnoJugador(p, columnasMax, campoJ, ptrPuntoGanado);
 				turnos++;
 				campoJ->setTurnos(turnos);
-				limpiaPantalla();
-				mostrarCampo(columnasMax, campoJ);
 				imprimirCadena("  (1)Seguir jugando");
 				imprimirCadena("  (2)Regresar al menú");
 				seleccion = leerSeleccion(2);
@@ -1107,9 +1103,9 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 		}
 	}
 	// verifica si esta en fila final pero no en la esquinas
-	else if ((punto->getY() == 0) && (punto->getX() > 0 && punto->getX() < puntSupDerecho))
+	else if ((punto->getY() == filasMax) && (punto->getX() > 0 && punto->getX() < puntSupDerecho))
 	{
-		if (punto->checkDerecha() == true && punto->checkIzq() == true && punto->checkAbajo())
+		if (punto->checkDerecha() == true && punto->checkIzq() == true && punto->checkArriba())
 		{
 			punto->setConquistado(true);
 		}

@@ -29,7 +29,7 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
             if (!(puntoOrigen = c->buscar(i, j)))
             {
                 //Forzar izquierda
-                i = i + 1;
+                i = i;
                 j = j - 1;
             }
             else if (!(puntoOrigen = c->buscar(i, j)))

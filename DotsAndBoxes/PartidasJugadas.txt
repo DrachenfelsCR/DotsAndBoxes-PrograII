@@ -1,4 +1,4 @@
-PATE	persona	Maquina	Aleatorio	8	5	1	1	1	PATE vs Maquina
-LOBO	persona	Maquina	Aleatorio	3	5	1	1	1	LOBO vs Maquina
-HENRY	persona	JULIO	persona	5	2	1	0	0	HENRY vs JULIO
-DAVID	persona	JOSE	persona	7	2	1	0	0	DAVID vs JOSE
+HENRY	persona	0	KAROL	persona	1	4	2	1	0	0	HENRY vs KAROL
+AANG	persona	0	AZULA	persona	1	4	3	1	1	0	AANG vs AZULA
+PUTO	persona	0	PATO	persona	1	5	5	1	1	1	PUTO vs PATO
+SATAN	persona	0	JESUS	persona	1	4	3	0	1	0	SATAN vs JESUS

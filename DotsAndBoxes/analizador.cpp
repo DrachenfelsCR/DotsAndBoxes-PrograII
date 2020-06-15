@@ -20,11 +20,13 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo, jug
 	string arriba;
 	string derecha;
 	string abajo;
+	string conquistaStr;
 	//-------------------------
 	bool izquierdaReal;
 	bool arribaReal;
 	bool derechaReal;
 	bool abajoReal;
+	bool conquista;
 	//-------------------------
 	int iReal;
 	int jReal;
@@ -34,6 +36,7 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo, jug
 	{
 		getline(input, i, '\t');
 		getline(input, j, '\t');
+		getline(input, conquistaStr, '\t');
 		getline(input, jugadorA, '\t');
 		getline(input, numJugadorStr, '\t');
 		getline(input, izquierda, '\t');
@@ -56,32 +59,41 @@ void analizador::recuperarCampoJuego(puntoCompuesto* matriz, string archivo, jug
 		}
 		iReal = convertirInt(i);
 		jReal = convertirInt(j);
+		conquista = convertirBool(conquistaStr);
 		numJugador = convertirInt(numJugadorStr);
 		if (!input.eof())
 		{
-			if (izquierda == "vacio")
+			if ((matriz->getArreglo())[iReal][jReal] == nullptr)
 			{
-				(matriz->getArreglo())[iReal][jReal] = nullptr;
+
 			}
 			else
 			{
-					(matriz->getArreglo())[iReal][jReal]->setIzquierda(izquierdaReal);
-					(matriz->getArreglo())[iReal][jReal]->setArriba(arribaReal);
-					(matriz->getArreglo())[iReal][jReal]->setDerecha(derechaReal);
-					(matriz->getArreglo())[iReal][jReal]->setAbajo(abajoReal);
-					if (numJugador != 0)
+				(matriz->getArreglo())[iReal][jReal]->setIzquierda(izquierdaReal);
+				(matriz->getArreglo())[iReal][jReal]->setArriba(arribaReal);
+				(matriz->getArreglo())[iReal][jReal]->setDerecha(derechaReal);
+				(matriz->getArreglo())[iReal][jReal]->setAbajo(abajoReal);
+				if (numJugador != 0)
+				{
+					if (jugadorA == jugadorN1->getNombre())
 					{
-						if (jugadorA == jugadorN1->getNombre())
+						(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN1);
+						if (conquista == true)
 						{
-							(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN1);
+							(matriz->getArreglo())[iReal][jReal]->setConquista(true);
 						}
-						else if (jugadorA == jugadorN2->getNombre())
-						{
-							(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN2);
-						}		
 					}
+					else if (jugadorA == jugadorN2->getNombre())
+					{
+						(matriz->getArreglo())[iReal][jReal]->setJugador(jugadorN2);
+						if (conquista == true)
+						{
+							(matriz->getArreglo())[iReal][jReal]->setConquista(true);
+						}
+					}
+				}
 			}
-			
+
 		}
 	}
 	input.close();
@@ -148,10 +160,6 @@ void analizador::recuperarCampoJuegoMaquina(puntoCompuesto* matriz, string archi
 			}
 			else
 			{
-				/*if (iReal >= 4 && jReal >= 3)
-				{
-					int algo = 0;
-				}*/
 				(matriz->getArreglo())[iReal][jReal]->setIzquierda(izquierdaReal);
 				(matriz->getArreglo())[iReal][jReal]->setArriba(arribaReal);
 				(matriz->getArreglo())[iReal][jReal]->setDerecha(derechaReal);
@@ -183,7 +191,7 @@ void analizador::recuperarCampoJuegoMaquina(puntoCompuesto* matriz, string archi
 }
 
 
-void analizador::recuperarNombrePartidas(string archivo, string* v, string* estrategias, string* nombre1, string* nombre2, int* mayorPtr, int* ptrColumna1, int* ptrColumna2, int* ptrColumna3, string* estrategia, Maquina* m, int* ptrTurnos)
+void analizador::recuperarNombrePartidas(string archivo, string* v, string* estrategias, string* nombre1, string* nombre2, int* mayorPtr, int* ptrColumna1, int* ptrColumna2, int* ptrColumna3, string* estrategia, Maquina* m, int* ptrTurnos, int* ptrPuntos1, int* ptrPuntos2)
 {
 	ifstream input;
 	string vectorNombres[20];
@@ -194,6 +202,8 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* estr
 	string estrategia2;
 	string turnosStr;
 	string mayorStr;
+	string puntosJ1Str;
+	string puntosJ2Str;
 	//-----------------
 	string columnas1str;
 	string columnas2str;
@@ -205,13 +215,17 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* estr
 	int mayor = 0;
 	int i = 0;
 	int turnos = 0;
+	int puntosJ1 = 0;
+	int puntosJ2 = 0;
 	input.open(archivo.c_str());
 	while (input.good())
 	{
 		getline(input, nomJugador1, '\t');
 		getline(input, estrategia1, '\t');
+		getline(input, puntosJ1Str, '\t');
 		getline(input, nomJugador2, '\t');
 		getline(input, vectorEstrategias[i], '\t');
+		getline(input, puntosJ2Str, '\t');
 		getline(input, turnosStr, '\t');
 		getline(input, mayorStr, '\t');
 		getline(input, columnas1str, '\t');
@@ -223,6 +237,8 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* estr
 		columnas1 = convertirInt(columnas1str);
 		columnas2 = convertirInt(columnas2str);
 		columnas3= convertirInt(columnas3str);
+		puntosJ1 = convertirInt(puntosJ1Str);
+		puntosJ2 = convertirInt(puntosJ2Str);
 		if (!input.eof())
 		{
 			v[i] = vectorNombres[i];
@@ -235,6 +251,8 @@ void analizador::recuperarNombrePartidas(string archivo, string* v, string* estr
 			*ptrColumna1 = columnas1;
 			*ptrColumna2 = columnas2;
 			*ptrColumna3 = columnas3;
+			*ptrPuntos1 = puntosJ1;
+			*ptrPuntos2 = puntosJ2;
 			i++;
 		}
 	}

@@ -271,6 +271,10 @@ void interfaz::cargarPartida()
 	int* ptrColumna1 = &columna1;
 	int* ptrColumna2 = &columna2;
 	int* ptrColumna3 = &columna3;
+	int puntosJ1 = 0;
+	int puntosJ2 = 0;
+	int* ptrPuntos1 = &puntosJ1;
+	int* ptrPuntos2 = &puntosJ2;
 	//------
 	string* ptrNombreJ1=  &nombreJ1;
 	string* ptrNombreJ2 = &nombreJ2;
@@ -286,7 +290,7 @@ void interfaz::cargarPartida()
 		}
 		analizador analiza;
 		int seleccion = 0;
-		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, estrategias, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot, ptrTurnos);
+		analiza.recuperarNombrePartidas("PartidasJugadas.txt", nombrePartidas, estrategias, ptrNombreJ1, ptrNombreJ2, ptrMayor, ptrColumna1, ptrColumna2, ptrColumna3, ptrStrategy, bot, ptrTurnos, ptrPuntos1, ptrPuntos2);
 		this->campoJuegoC = crearCampoDeJuego(columna1, columna2, columna3);
 		for (int i = 0; i < 20; i++)
 		{
@@ -312,9 +316,11 @@ void interfaz::cargarPartida()
 
 		//-------------------------------------------
 		jugador* jugadorN1 = new jugador(nombreJ1, 1);
+		jugadorN1->setPuntos(puntosJ1);
 		if (nombreJ2 == "Maquina")
 		{
 			bot = new Maquina(nombreJ2, 2);
+			bot->setPuntos(puntosJ2);
 			if (estrategias[seleccion - 1] == "Aleatorio")
 			{
 				juegoAletorio* jAleatorio = new juegoAletorio();
@@ -344,6 +350,7 @@ void interfaz::cargarPartida()
 		else
 		{
 			jugadorN2 = new jugador(nombreJ2, 2);
+			jugadorN2->setPuntos(puntosJ2);
 			this->campoJuegoC->setJugador2(jugadorN2);
 		}
 		this->campoJuegoC->setJugador1(jugadorN1);

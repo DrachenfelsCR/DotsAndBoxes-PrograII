@@ -273,15 +273,18 @@ bool puntoCompuesto::consquistadoTotal(int x, int y)
 	 outp.open(archivo.c_str(), ofstream::app);
 	 outp << this->jugador1->getNombre() << '\t';
 	 outp << "persona" << '\t';
+	 outp << this->jugador1->getPuntos() << '\t';
 	 if (this->jugador2 != nullptr)
 	 {
 		 outp << this->jugador2->getNombre() << '\t';
 		 outp << "persona" << '\t';
+		 outp << this->jugador2->getPuntos() << '\t';
 	 }
 	 else if (this->laMaquina != nullptr)
 	 {
 		 outp << this->laMaquina->getNombre() << '\t';
 		 outp << this->laMaquina->getStrategy()->getNombre() << '\t';
+		 outp << this->laMaquina->getPuntos() << '\t';
 	 }
 	 outp << this->contadorTurnos << '\t';
 	 outp << this->mayor << '\t';

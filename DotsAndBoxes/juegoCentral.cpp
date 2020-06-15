@@ -2,10 +2,9 @@
 
 void juegoCentral::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
 {
-    bool opc = false;
+    int puntosActuales = m->getPuntos();
     this->puntoOrigen = nullptr;
     this->puntoDestino = nullptr;
-    int puntosActuales = m->getPuntos();
     srand(time(NULL));
     int aleatorizador;
     int i = 0;
@@ -23,311 +22,84 @@ void juegoCentral::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
         ///---------------
         while (puntoOrigen == nullptr)
         {
-
             aleatorizador = rand() % 4 + 1;
-            i = rand() % (c->getFilasM()/2);
-            j = rand() % (colsMayor/2);
+            i = rand() % (c->getFilasM()/2)+0;
+            j = rand() % colsMayor;
             puntoOrigen = c->buscar(i, j);
-
-            if ((puntoOrigen = c->buscar(i, j)) == nullptr)
-            {
-                i = i;
-                j = j - 1;
-                if (j < 0 )
-                {
-                    j = 666;
-                }
-                if (puntoOrigen->checkIzq())
-                {
-                    j = 666;
-                }
-
-            }
-            else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
-            {
-                i = i - 1;
-                j = j;
-                if (i < 0)
-                {
-                    i = 666;
-                }
-                if (puntoOrigen->checkArriba())
-                {
-                    i = 666;
-                }
-
-            }
-            else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
-            {
-                i = i;
-                j = j + 1;
-                if (j > colsMayor)
-                {
-                    j = 666;
-                }
-                if (puntoOrigen->checkDerecha())
-                {
-                    j = 666;
-                }
-
-            }
-            else if ((puntoOrigen = c->buscar(i, j)) == nullptr)
-            {
-                i = i + 1;
-                j = j;
-                if (i > c->getFilasM())
-                {
-                    i = 666;
-                }
-                if (puntoOrigen->checkAbajo())
-                {
-                    i = 666;
-                }
-
-            }
-
-            else
-            {
-                
-                if (jugadaInteligente(c, m, ptrPuntoGanado))
-                {
-                }
-                else
-                {
-                    ///---------------
-                    while (puntoOrigen == nullptr)
-                    {
-                        aleatorizador = rand() % 4 + 1;
-                        i = rand() % c->getFilasM();
-                        j = rand() % colsMayor;
-                        puntoOrigen = c->buscar(i, j);
-                        fila = i;
-                        columna = j;
-                        if (puntoOrigen != nullptr)
-                        {
-                            if (puntoOrigen->getConquistado())
-                            {
-                                puntoOrigen = nullptr;
-                            }
-                        }
-                    }
-                    //--------------------
-                    int iDestino = 0;
-                    int yDestino = 0;
-                    switch (aleatorizador)
-                    {
-                    case 1:
-                        //Forzar izquierda
-                        iDestino = i;
-                        yDestino = j - 1;
-                        if (yDestino < 0)
-                        {
-                            yDestino = 666;
-                        }
-                        if (puntoOrigen->checkIzq())
-                        {
-                            iDestino = 666;
-                        }
-                        break;
-                    case 2:
-                        //Forzar arriba
-                        iDestino = i - 1;
-                        yDestino = j;
-                        if (iDestino < 0)
-                        {
-                            iDestino = 666;
-                        }
-                        if (puntoOrigen->checkArriba())
-                        {
-                            iDestino = 666;
-                        }
-                        break;
-                    case 3:
-                        //Forzar derecha
-                        iDestino = i;
-                        yDestino = j + 1;
-                        if (puntoOrigen->checkDerecha())
-                        {
-                            iDestino = 666;
-                        }
-                        break;
-                    case 4:
-                        //Forzar abajo
-                        iDestino = i + 1;
-                        yDestino = j;
-                        if (puntoOrigen->checkAbajo())
-                        {
-                            iDestino = 666;
-                        }
-                        break;
-                    default:
-                        break;
-                    }
-                    if (iDestino == 666 || yDestino == 666)
-                    {
-                        puntoDestino = nullptr;
-                    }
-                    else
-                    {
-                        puntoDestino = c->buscar(iDestino, yDestino);
-                    }
-
-                    while (puntoDestino == nullptr)
-                    {
-                        aleatorizador = rand() % 4 + 1;
-                        switch (aleatorizador)
-                        {
-                        case 1:
-                            //Forzar izquierda
-                            iDestino = i;
-                            yDestino = j - 1;
-                            if (yDestino < 0)
-                            {
-                                yDestino = 666;
-                            }
-                            if (puntoOrigen->checkIzq())
-                            {
-                                iDestino = 666;
-                            }
-                            break;
-                        case 2:
-                            //Forzar arriba
-                            iDestino = i - 1;
-                            yDestino = j;
-                            if (iDestino < 0)
-                            {
-                                iDestino = 666;
-                            }
-                            if (puntoOrigen->checkArriba())
-                            {
-                                iDestino = 666;
-                            }
-                            break;
-                        case 3:
-                            //Forzar derecha
-                            iDestino = i;
-                            yDestino = j + 1;
-                            if (puntoOrigen->checkDerecha())
-                            {
-                                iDestino = 666;
-                            }
-                            break;
-                        case 4:
-                            //Forzar abajo
-                            iDestino = i + 1;
-                            yDestino = j;
-                            if (puntoOrigen->checkAbajo())
-                            {
-                                iDestino = 666;
-                            }
-                            break;
-                        default:
-                            break;
-                        }
-                        if (iDestino == 666 || yDestino == 666)
-                        {
-                            puntoDestino = nullptr;
-                        }
-                        else
-                        {
-                            puntoDestino = c->buscar(iDestino, yDestino);
-                        }
-                    }
-                    fila2 = iDestino;
-                    columna2 = yDestino;
-                    if ((c->getArreglo()[i][j] != nullptr) && (c->getArreglo()[iDestino][yDestino] != nullptr))
-                    {
-                        if (fila2 > fila)
-                        {
-                            puntoOrigen->setAbajo(true);
-                            puntoDestino->setArriba(true);
-                            c->movimientoAbajo(fila2, columna2, m);
-                            if (puntosActuales < m->getPuntos())
-                            {
-                                *ptrPuntoGanado = true;
-                            }
-                            else
-                            {
-                                *ptrPuntoGanado = false;
-                            }
-                        }
-                        else if (fila2 < fila)
-                        {
-                            puntoOrigen->setArriba(true);
-                            puntoDestino->setAbajo(true);
-                            c->movimientoArriba(fila2, columna2, m);
-                            if (puntosActuales < m->getPuntos())
-                            {
-                                *ptrPuntoGanado = true;
-                            }
-                            else
-                            {
-                                *ptrPuntoGanado = false;
-                            }
-                        }
-                        else if (columna2 > columna)
-                        {
-                            puntoOrigen->setDerecha(true);
-                            puntoDestino->setIzquierda(true);
-                            c->movimientoDerecha(fila2, columna2, m);
-                            if (puntosActuales < m->getPuntos())
-                            {
-                                *ptrPuntoGanado = true;
-                            }
-                            else
-                            {
-                                *ptrPuntoGanado = false;
-                            }
-                        }
-                        else if (columna2 < columna)
-                        {
-                            puntoOrigen->setIzquierda(true);
-                            puntoDestino->setDerecha(true);
-                            c->movimientoIzquierda(fila2, columna2, m);
-                            if (puntosActuales < m->getPuntos())
-                            {
-                                *ptrPuntoGanado = true;
-                            }
-                            else
-                            {
-                                *ptrPuntoGanado = false;
-                            }
-                        }
-                    }
-                }
-            }
-            if (i == 666 || j == 666)
-            {
-                puntoDestino = nullptr;
-            }
-            else
-            {
-                puntoOrigen = c->buscar(i, j);
-            }
-
-
-
             fila = i;
             columna = j;
             if (puntoOrigen != nullptr)
             {
                 if (puntoOrigen->getConquistado())
                 {
-
                     puntoOrigen = nullptr;
-
                 }
-
             }
-
         }
         //--------------------
-        if (opc == false)
+        int iDestino = 0;
+        int yDestino = 0;
+        switch (aleatorizador)
         {
+        case 1:
+            //Forzar izquierda
+            iDestino = i;
+            yDestino = j - 1;
+            if (yDestino < 0)
+            {
+                yDestino = 666;
+            }
+            if (puntoOrigen->checkIzq())
+            {
+                iDestino = 666;
+            }
+            break;
+        case 2:
+            //Forzar arriba
+            iDestino = i - 1;
+            yDestino = j;
+            if (iDestino < 0)
+            {
+                iDestino = 666;
+            }
+            if (puntoOrigen->checkArriba())
+            {
+                iDestino = 666;
+            }
+            break;
+        case 3:
+            //Forzar derecha
+            iDestino = i;
+            yDestino = j + 1;
+            if (puntoOrigen->checkDerecha())
+            {
+                iDestino = 666;
+            }
+            break;
+        case 4:
+            //Forzar abajo
+            iDestino = i + 1;
+            yDestino = j;
+            if (puntoOrigen->checkAbajo())
+            {
+                iDestino = 666;
+            }
+            break;
+        default:
+            break;
+        }
+        if (iDestino == 666 || yDestino == 666)
+        {
+            puntoDestino = nullptr;
+        }
+        else
+        {
+            puntoDestino = c->buscar(iDestino, yDestino);
+        }
 
-
-            int iDestino = 0;
-            int yDestino = 0;
+        while (puntoDestino == nullptr)
+        {
+            aleatorizador = rand() % 4 + 1;
             switch (aleatorizador)
             {
             case 1:
@@ -360,10 +132,6 @@ void juegoCentral::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
                 //Forzar derecha
                 iDestino = i;
                 yDestino = j + 1;
-                if (iDestino > c->getFilasM())
-                {
-                    iDestino = 666;
-                }
                 if (puntoOrigen->checkDerecha())
                 {
                     iDestino = 666;
@@ -373,10 +141,6 @@ void juegoCentral::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
                 //Forzar abajo
                 iDestino = i + 1;
                 yDestino = j;
-                if (iDestino > c->getFilasM())
-                {
-                    iDestino = 666;
-                }
                 if (puntoOrigen->checkAbajo())
                 {
                     iDestino = 666;
@@ -392,143 +156,66 @@ void juegoCentral::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
             else
             {
                 puntoDestino = c->buscar(iDestino, yDestino);
-
-
             }
-
-            while (puntoDestino == nullptr)
+        }
+        fila2 = iDestino;
+        columna2 = yDestino;
+        if ((c->getArreglo()[i][j] != nullptr) && (c->getArreglo()[iDestino][yDestino] != nullptr))
+        {
+            if (fila2 > fila)
             {
-                aleatorizador = rand() % 4 + 1;
-                switch (aleatorizador)
+                puntoOrigen->setAbajo(true);
+                puntoDestino->setArriba(true);
+                c->movimientoAbajo(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
                 {
-                case 1:
-                    //Forzar izquierda
-                    iDestino = i;
-                    yDestino = j - 1;
-                    if (yDestino < 0)
-                    {
-                        yDestino = 666;
-                    }
-                    if (puntoOrigen->checkIzq())
-                    {
-                        iDestino = 666;
-                    }
-                    break;
-                case 2:
-                    //Forzar arriba
-                    iDestino = i - 1;
-                    yDestino = j;
-                    if (iDestino < 0)
-                    {
-                        iDestino = 666;
-                    }
-                    if (puntoOrigen->checkArriba())
-                    {
-                        iDestino = 666;
-                    }
-                    break;
-                case 3:
-                    //Forzar derecha
-                    iDestino = i;
-                    yDestino = j + 1;
-                    if (iDestino > c->getFilasM())
-                    {
-                        iDestino = 666;
-                    }
-                    if (puntoOrigen->checkDerecha())
-                    {
-                        iDestino = 666;
-                    }
-                    break;
-                case 4:
-                    //Forzar abajo
-                    iDestino = i + 1;
-                    yDestino = j;
-                    if (iDestino > c->getFilasM())
-                    {
-                        iDestino = 666;
-                    }
-                    if (puntoOrigen->checkAbajo())
-                    {
-                        iDestino = 666;
-                    }
-                    break;
-                default:
-                    break;
-                }
-                if (iDestino == 666 || yDestino == 666)
-                {
-                    puntoDestino = nullptr;
+                    *ptrPuntoGanado = true;
                 }
                 else
                 {
-                    puntoDestino = c->buscar(iDestino, yDestino);
-
-
+                    *ptrPuntoGanado = false;
                 }
-
-
-
             }
-            fila2 = iDestino;
-            columna2 = yDestino;
-            if ((c->getArreglo()[i][j] != nullptr) && (c->getArreglo()[iDestino][yDestino] != nullptr))
+            else if (fila2 < fila)
             {
-                if (fila2 > fila)
+                puntoOrigen->setArriba(true);
+                puntoDestino->setAbajo(true);
+                c->movimientoArriba(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
                 {
-                    puntoOrigen->setAbajo(true);
-                    puntoDestino->setArriba(true);
-                    c->movimientoAbajo(fila2, columna2, m);
-                    if (puntosActuales < m->getPuntos())
-                    {
-                        *ptrPuntoGanado = true;
-                    }
-                    else
-                    {
-                        *ptrPuntoGanado = false;
-                    }
+                    *ptrPuntoGanado = true;
                 }
-                else if (fila2 < fila)
+                else
                 {
-                    puntoOrigen->setArriba(true);
-                    puntoDestino->setAbajo(true);
-                    c->movimientoArriba(fila2, columna2, m);
-                    if (puntosActuales < m->getPuntos())
-                    {
-                        *ptrPuntoGanado = true;
-                    }
-                    else
-                    {
-                        *ptrPuntoGanado = false;
-                    }
+                    *ptrPuntoGanado = false;
                 }
-                else if (columna2 > columna)
+            }
+            else if (columna2 > columna)
+            {
+                puntoOrigen->setDerecha(true);
+                puntoDestino->setIzquierda(true);
+                c->movimientoDerecha(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
                 {
-                    puntoOrigen->setDerecha(true);
-                    puntoDestino->setIzquierda(true);
-                    c->movimientoDerecha(fila2, columna2, m);
-                    if (puntosActuales < m->getPuntos())
-                    {
-                        *ptrPuntoGanado = true;
-                    }
-                    else
-                    {
-                        *ptrPuntoGanado = false;
-                    }
+                    *ptrPuntoGanado = true;
                 }
-                else if (columna2 < columna)
+                else
                 {
-                    puntoOrigen->setIzquierda(true);
-                    puntoDestino->setDerecha(true);
-                    c->movimientoIzquierda(fila2, columna2, m);
-                    if (puntosActuales < m->getPuntos())
-                    {
-                        *ptrPuntoGanado = true;
-                    }
-                    else
-                    {
-                        *ptrPuntoGanado = false;
-                    }
+                    *ptrPuntoGanado = false;
+                }
+            }
+            else if (columna2 < columna)
+            {
+                puntoOrigen->setIzquierda(true);
+                puntoDestino->setDerecha(true);
+                c->movimientoIzquierda(fila2, columna2, m);
+                if (puntosActuales < m->getPuntos())
+                {
+                    *ptrPuntoGanado = true;
+                }
+                else
+                {
+                    *ptrPuntoGanado = false;
                 }
             }
         }

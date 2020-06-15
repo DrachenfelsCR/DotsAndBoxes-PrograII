@@ -1135,7 +1135,7 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 	{
 		if (columna1 < columna2)
 		{
-			if (punto->checkIzq() == true && punto->checkAbajo() == true)
+			if (punto->checkIzq() == true && punto->checkAbajo() == true && punto->checkAbajo())
 			{
 				punto->setConquistado(true);
 			}

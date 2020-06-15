@@ -1065,6 +1065,7 @@ void interfaz::verificaPunto(puntoSimple* punto, int filasMax, int cols1, int co
 	int puntSupDerecho = columna1;
 	//----------------------------------
 	// verifica si es esquina superior izquierda
+
 	if ((punto->getY() == 0) && (punto->getX() == 0))
 	{
 		if (punto->checkAbajo() == true && punto->checkDerecha() == true)

@@ -87,19 +87,6 @@ void juegoCercano::jugar(puntoCompuesto*c,Maquina*m, bool* ptrPuntoGanado)
 
             else
             {
-                opc = true;
-                int puntosActuales = m->getPuntos();
-                this->puntoOrigen = nullptr;
-                this->puntoDestino = nullptr;
-                srand(time(NULL));
-                int aleatorizador;
-                int i = 0;
-                int j = 0;
-                int fila = 0;
-                int columna = 0;
-                int fila2 = 0;
-                int columna2 = 0;
-                int colsMayor = mayorDeTresEnteros(2 * c->getcolumna1(), 3 * c->getcolumna2(), 5 * c->getcolumna3());
                 if (jugadaInteligente(c, m, ptrPuntoGanado))
                 {
                 }

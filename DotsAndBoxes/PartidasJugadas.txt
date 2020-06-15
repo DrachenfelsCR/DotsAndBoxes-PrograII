@@ -1,2 +1,3 @@
 NARUTO	persona	5	Maquina	Islas	12	46	5	1	1	1	NARUTO vs Maquina
 david	persona	0	Maquina	Islas	17	46	5	1	1	1	david vs Maquina
+david	persona	0	Maquina	persona	17	46	0	1	1	1	

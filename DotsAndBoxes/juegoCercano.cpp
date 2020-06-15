@@ -110,7 +110,7 @@ void juegoCercano::jugar(puntoCompuesto* c, Maquina* m, bool* ptrPuntoGanado)
                                     }
                                     break;
                                 case 4:
-                                    //Intenta probar con una seleccion hacia abajo
+                                    // Intenta probar con una seleccion hacia abajo
                                     if (i < filasM)
                                     {
                                         puntoOrigen = c->buscar(i + 1, j);

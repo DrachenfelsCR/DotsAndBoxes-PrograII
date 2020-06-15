@@ -1,5 +1,0 @@
-DAVID	persona	4	Maquina	Cercano	9	46	5	1	1	1	DAVID vs Maquina
-DAVID	persona	0	Maquina	Cercano	2	7	2	1	0	0	DAVID vs Maquina
-DAVID	persona	0	Maquina	Cercano	3	12	3	0	1	0	DAVID vs Maquina
-david	persona	2	Maquina	Cercano	7	29	5	1	0	1	david vs Maquina
-david	persona	3	Maquina	Cercano	12	46	5	1	1	1	david vs Maquina
